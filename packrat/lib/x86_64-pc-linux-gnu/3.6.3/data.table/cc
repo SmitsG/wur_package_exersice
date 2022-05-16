@@ -1,0 +1,2 @@
+CC=gcc-5
+CFLAGS=-g -O2
