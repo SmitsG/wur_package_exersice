@@ -24,7 +24,7 @@ library(roxygen2)
 working_directory <- getwd()
 
 # get the path to the data Excel file.
-excel_data_path <- paste(c(working_directory, "data/raw_data/20191219 SciRep PBMCs donor A.xlsx"), collapse="/")
+excel_data_path <- paste(c(working_directory, "data/raw_data/data.xlsx"), collapse="/")
 
 ## To show sheetnames of the Excel file use the following command:
 # excel_sheets(excel_data_path)
@@ -45,28 +45,30 @@ import_excel_data <- function(excel_data_path, sheet=NULL, range = NULL, col_nam
   out <- tryCatch(
     {
       message("Import data")
-      read_excel(excel_data_path,
+      readxl::read_excel(excel_data_path,
                  sheet = sheet,
                  range = range,
                  col_names = col_names,
                  col_types = col_types)
     },
     error=function(err) {
+      print(err)
       # Show the error message.
-      cat("ERROR :", conditionMessage(err), "\n")
-      # log_error(conditionMessage(err), "\n")
+      x <- cat("ERROR :", conditionMessage(err), "\n")
+      return(x)
+      log_error(conditionMessage(err), "\n")
     },
     warning=function(war) {
       # Show the warning message.
-      cat("WARNING :", conditionMessage(war), "\n")
-      # log_warn(conditionMessage(war), "\n")
+      x<- cat("WARNING :", conditionMessage(war), "\n")
+      return(x)
+      log_warn(conditionMessage(war), "\n")
     },
     finally={
       print("finally Executed")
     }
   )
   return(out)
-
 }
 
 import_excel_data(excel_data_path, sheet = "Raw")
