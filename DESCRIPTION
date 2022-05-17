@@ -13,5 +13,6 @@ Suggests:
 Config/testthat/edition: 3
 RoxygenNote: 7.1.2
 Imports: 
+    purrr,
     readxl,
     stringr

@@ -8,7 +8,8 @@
 [![R-CMD-check](https://github.com/SmitsG/wur_package_exersice/workflows/R-CMD-check/badge.svg)](https://github.com/SmitsG/wur_package_exersice/actions)
 <!-- badges: end -->
 
-The goal of WurPackageExersice is to …
+The goal of WurPackageExersice is to import an Excel file and give an
+error or warning if the imported data doesn’t meet expectations.
 
 ## Installation
 
@@ -35,6 +36,7 @@ You can include R chunks like so:
 ``` r
 WurPackageExersice::import_excel_data(excel_data_path, sheet = "Raw")
 #> Import data
+#> <simpleError in is_string(path): object 'excel_data_path' not found>
 #> ERROR : object 'excel_data_path' not found 
 #> [1] "finally Executed"
 #> NULL

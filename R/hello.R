@@ -72,4 +72,3 @@ import_excel_data <- function(excel_data_path, sheet=NULL, range = NULL, col_nam
 }
 
 import_excel_data(excel_data_path, sheet = "Raw")
-import_excel_data()
