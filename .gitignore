@@ -38,3 +38,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 packrat/lib*/
+WurPackageExersice.Rcheck/
+WurPackageExersice*.tar.gz
+WurPackageExersice*.tgz

@@ -1,6 +1,3 @@
-#### -- Packrat Autoloader (version 0.7.0) -- ####
-source("packrat/init.R")
-#### -- End Packrat Autoloader -- ####
 
 if (interactive()) {
   suppressMessages(require(devtools))
@@ -19,3 +16,6 @@ options(
   ),
   usethis.protocol  = "ssh"  
 )
+#### -- Packrat Autoloader (version 0.7.0) -- ####
+source("packrat/init.R")
+#### -- End Packrat Autoloader -- ####
