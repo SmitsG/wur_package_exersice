@@ -52,17 +52,16 @@ import_excel_data <- function(excel_data_path, sheet=NULL, range = NULL, col_nam
                  col_types = col_types)
     },
     error=function(err) {
-      print(err)
       # Show the error message.
-      x <- cat("ERROR :", conditionMessage(err), "\n")
-      return(x)
+      cat("ERROR :", conditionMessage(err), "\n")
       log_error(conditionMessage(err), "\n")
+      quit()
     },
     warning=function(war) {
       # Show the warning message.
-      x<- cat("WARNING :", conditionMessage(war), "\n")
-      return(x)
+      cat("WARNING :", conditionMessage(war), "\n")
       log_warn(conditionMessage(war), "\n")
+      quit()
     },
     finally={
       print("finally Executed")
