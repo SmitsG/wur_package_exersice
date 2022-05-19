@@ -52,7 +52,7 @@ plot_raw_BKGD <- function(var, total_df, O2_targetEmission, pH_targetEmission, f
   if (var == "O2_em_corr"){targetEMS<-  O2_targetEmission} else {targetEMS <- pH_targetEmission}
   
   gg_plot = ggplot(df, aes(x=minutes, y=emission, color = well))+
-    geom_point_interactive(mapping = aes(colour  = well, tooltip = well, data_id = well), alpha = 0.5, size = 5)+
+    geom_point_interactive(mapping = aes(colour  = well, tooltip = well, data_id = well), alpha = 0.5, size = 3)+
     geom_hline_interactive(yintercept = targetEMS, linetype = "dashed", color = "#D16103")+
     theme_maxTick()+
     # scale_color_manual(values = custom.col)+
