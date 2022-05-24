@@ -41,7 +41,7 @@ check_excel_sheet <- function(fileName){
 
 ### function: bkg_quality_check (For PBMC Seahorse data) ####
 # A bkg_quality_check function, which adds a quality score to the background wells. 
-# The quality will be visualised within a quality chart, and quality boxes. 
+# The quality will be visualized within a quality chart, and quality boxes. 
 # High quality means less techniqual variation. Note: Because PBMC data is used as a reference, you will
 # only get a reliable results for imported PBMC data sets.
 bkg_quality_check <- function(input, output, XFe96data_tibble){
@@ -132,12 +132,12 @@ shinyApp( ####
                          menuSubItem("Range Plot Emissions",
                                      tabName = "make_range_plot"
                          ),
-                         menuSubItem("Heatmap",
-                                     tabName = "heatmap_group"
+                         menuSubItem("Group location",
+                                     tabName = "group_location"
                          ),
-                         menuSubItem("Wells first ticks",
-                                     tabName = "allWells_firstTicks"
-                         ),
+                         # menuSubItem("Wells first ticks",
+                         #             tabName = "allWells_firstTicks"
+                         # ),
                          menuSubItem("Background Quality Control",
                                      tabName = "bkg_quality"
                          )
@@ -269,16 +269,18 @@ shinyApp( ####
                                 text-align: center;}")),
                                 # Show plot Description in HTML format.
                                 HTML(
-                                    "<p>When the user presses the <em>'visualise Analysis'</em>
-                  button, a plot will be created which gives Raw Background
-                  information. The emission of each background well from the
-                  Seahorse analysis will be plotted against time. The dotted
-                  treshold line shows the Emission target</p>"
+                                  "<p> Visualizes the fluorescent emission (Au) of each background well against time. 
+                                  The user can compare the Au of different background wells. 
+                                  The fluorescence emission of the oxygen tension in the atmosphere is 151.7 mmHg. 
+                                  This emission is set to 12500 Au during the calibration of the cartridge before the 
+                                  performance of each experiment. A plot will be created when the user presses 
+                                  the 'visualize Analysis' button. The dotted threshold line shows the Emission target
+                                  of 12500 Au.</p>"
                                 ),
                                 # When the user clicks on the action button the Raw Background plot will be
                                 # visualized.
                                 actionButton("plot_raw_bkg_action_button",
-                                             "Visualise Analysis",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style = "color: #fff;
                              background-color: #337ab7; border-color: #2e6da4"
@@ -317,18 +319,16 @@ shinyApp( ####
                                 solidHeader = TRUE,
                                 # Show plot Description in HTML format.
                                 HTML(
-                                    "<p>When the user presses the <em>'Visualise Analysis'</em>
-                  button, a plot will be created which gives Means of the Raw
-                  Background information.The means emission of each background
-                  well from the Seahorse analysis will be plotted against time.
-                  The dotted treshold line shows the Emission target. The Error
-                  Bars are used to visualize the variability of the plotted data.
-                  </p>"
+                                  "<p>Visualizes the mean fluorescence emission (Au) of each background well against time. 
+                                  This will provide an overview of the average fluorescence emission of the different background wells. 
+                                  When the user clicks on the <em>'Visualize Analysis'</em> button, a plot will be created. 
+                                  The dotted threshold line shows the emission target of 12500 Au. 
+                                  The Error Bars are used to visualize the variability of the plotted data.</p>"
                                 ),
                                 # When the user clicks on the action button the Means Raw Background plot will be
                                 # visualized.
                                 actionButton("plot_means_raw_bkg_action_button",
-                                             "Visualise Analysis",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style = "color: #fff;
                              background-color: #337ab7;
@@ -364,13 +364,14 @@ shinyApp( ####
                                 status = "primary",
                                 solidHeader = TRUE,
                                 HTML(
-                                    "<p>When the user presses the <em>'Visualise Analysis'</em>
-                  button, a plot will be created which gives information about
-                  the Fluorescence Emission in the Area Under the curve. Each
-                  measurment represents a Seahorse Group. </p>"
+                                  "<p>Visualizes the fluorescence emission (Au) of each background well and is based on the area under the curve (auc). 
+                                  Multiple plots will be plotted. This allows for a comparison of the fluorescence emission between different background wells. 
+                                  When the user clicks on the <em>'Visualize Analysis'</em>, a plot will be created. 
+                                  There are two options. The first option will calculate the AUC for the first tick of each measurement. 
+                                  The second option calculates the surface area of each measurement against the 12500 Au.</p>"
                                 ),
                                 actionButton("plot_auc_facet_bkg_action_button",
-                                             "Visualise Analysis",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style = "color: #fff;
                              background-color: #337ab7; border-color: #2e6da4"
@@ -430,16 +431,14 @@ shinyApp( ####
                                 status = "primary",
                                 solidHeader = TRUE,
                                 HTML(
-                                    "<p>When the user presses the <em>'Visualise Analysis'</em>
-                  button, a plot will be created which gives information about
-                  the Fluorescence emission curve of cells. The emission will be
-                  plotted against the measurement.You can select different
-                  Seahorse Groups trough the <em>'Multiselect'</em> dropdown
-                  menu, up to a maximum of 4.
-                   </p>"
+                                  "<p>Visualizes the fluorescence emission (Au) of each well for different Seahorse groups. 
+                                  The first tick of every measurement will be visualized. 
+                                  We can compare the difference in Au between Groups. 
+                                  When the user presses the <em>'Visualize Analysis'</em> button, a plot will be created. 
+                                  You can select different Seahorse Groups through the <em>'Multiselect'</em> dropdown menu, up to a maximum of 4. </p>"
                                 ),
                                 actionButton("plot_group_emissions_action_button",
-                                             "Visualise Analysis",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style =
                                                  "color: #fff;
@@ -478,13 +477,16 @@ shinyApp( ####
                                 status = "primary",
                                 solidHeader = TRUE,
                                 HTML(
-                                    "<p> When the user clicks on the action button the oxigen 
-                  concentration of the background wells will be visualised with a 
-                  range plot (for each measurement.)
+                                  "<p> When the user clicks on the action button the oxygen 
+                  concentration (mmHg) of the background wells will be visualized within a 
+                  range plot. This is done for each measurement. The range is the highest and 
+                  lowest level of oxygen that is calculated. We set a threshold for these range 
+                  value to get an impression of the quality of the range.
                   </p>"
+                                  
                                 ),
                                 actionButton("make_range_plot_action_button",
-                                             "Visualise Analysis",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style =
                                                  "color: #fff;
@@ -518,11 +520,11 @@ shinyApp( ####
                 ),
                 # Chart page 6.
                 tabItem(
-                    "heatmap_group",
+                    "group_location",
                     fluidRow(
                         box(
                             width = 4,
-                            title = "Heatmap Group",
+                            title = "Group location",
                             status = "primary",
                             solidHeader = TRUE,
                             box(
@@ -531,15 +533,12 @@ shinyApp( ####
                                 status = "primary",
                                 solidHeader = TRUE,
                                 HTML(
-                                    "<p>When the user presses the <em>'Visualise Analysis'</em>
-                  button, a Heatmap will be created. The heatmap shows different
-                  postions on the 96-wells plate. Each group is represented with
-                  a different color, so you can get an impression the location
-                  of various Seahorse Groups.
-                  </p>"
+                                  "<p>Visualizes the location of different Seahorse Groups on a Seahorse 96-wells plate. 
+                                  Each group is represented with a different color. When the user presses the <em>'Visualize Analysis'</em> button, 
+                                  a plot will be created. </p>"
                                 ),
-                                actionButton("heatmap_group_action_button",
-                                             "Visualise Analysis",
+                                actionButton("group_location_action_button",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style =
                                                  "color: #fff;
@@ -551,10 +550,10 @@ shinyApp( ####
                         mainPanel(
                             box(
                                 width = 12,
-                                title = "Heatmap Group",
+                                title = "Group location",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                ggiraphOutput("heatmap_group")
+                                ggiraphOutput("group_location")
                             )
                         )
                     )
@@ -575,10 +574,10 @@ shinyApp( ####
                                 HTML(
                                     "<p>You can select different groups to show in the plot, up to
                   a maximum of 4. After you've selected the groups, you can click
-                  on the <em>'visualise plot'</em> button to visualise.</p>"
+                  on the <em>'visualize plot'</em> button to visualize.</p>"
                                 ),
                                 actionButton("plot_allWells_firstTicks_action_button",
-                                             "Visualise Analysis",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style = "
                              color: #fff;
@@ -625,13 +624,13 @@ shinyApp( ####
                   of techniqual variation will result in lower quality of the data. 
                   PBMC background. Seahorse data is used as a reference. Seahorse 
                   background well/plate data of an experiment is compared to these 
-                  reference data. The quality will be visualised within the Shiny App. 
+                  reference data. The quality will be visualized within the Shiny App. 
                   Different colors are used: red (low quality), yellow (medium quality),
                   green (high quality).
                   </p>"
                                 ),
                                 actionButton("bkgd_plot_xfe96data_action_button",
-                                             "Visualise Analysis",
+                                             "Visualize Analysis",
                                              icon("play"),
                                              style = "
                              color: #fff;
@@ -735,7 +734,7 @@ shinyApp( ####
         # Combine dataframe. Same as XFe96data_tibble$raw_data, changes the 'list with tibble' structure [[1]] to a normal data frame structure. 
         # So you can work with it more easily.
         total_df <- do.call(rbind.data.frame, XFe96data_tibble$raw_data)
-        # Extracts assay info list. Results will be visualised in the 'Data' tab.
+        # Extracts assay info list. Results will be visualized in the 'Data' tab.
         assay_info <- XFe96data_tibble[[4]]
         # Get the first value of the assay info list (which is list with tibble)
         assay_info <- assay_info[[1]]
@@ -866,7 +865,7 @@ shinyApp( ####
             # 'Charts' tab > 'Group Emissions'
             #### The fluorescence emission (Au) of each well is displayed. (Per Seahorse Group and for each measurement).
             # This makes it possible to compare the fluorescence emission between different groups. # Up to 4 groups can be selected.
-            # Note: Only the first tick of each measurement will be visualised.
+            # Note: Only the first tick of each measurement will be visualized.
             gg_plot <- plot_group_emissions(
               input$raw_em_corr,
               seahorse_groups,
@@ -899,10 +898,10 @@ shinyApp( ####
           })
         })
         
-        observeEvent(input$heatmap_group_action_button, {
+        observeEvent(input$group_location_action_button, {
           # 'Charts' tab > 'Heatmap' 
-          # Provides the user with an image of the position of different Seahorse groups, on a 96-well Seahorse plate.
-          output$heatmap_group <- renderggiraph({
+          # Provides the user with an image of the location of different Seahorse groups, on a 96-well Seahorse plate.
+          output$group_location <- renderggiraph({
             levels(as.factor(XFe96data$group))
             gg <- heatmap_groupMaker(XFe96data, input$file$name)
             return(girafe(
@@ -1094,9 +1093,9 @@ shinyApp( ####
             #   })
             # })
             
-            observeEvent(input$heatmap_group_action_button, {
+            observeEvent(input$group_location_action_button, {
               # Plate layout heatmap
-              output$heatmap_group <- renderggiraph({
+              output$group_postion <- renderggiraph({
                 levels(as.factor(XFe96data$group))
                 gg <- heatmap_groupMaker(XFe96data, input$file$name)
                 return(girafe(

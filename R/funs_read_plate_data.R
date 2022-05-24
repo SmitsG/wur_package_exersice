@@ -21,8 +21,9 @@ library(tidyxl)
 #' @examples
 read_plate_data <- function(fileName, injscheme) {
   sheets <- readxl::excel_sheets(fileName)
-  
-  # read raw data file
+
+  # XFe96data <- WurPackageExersice::import_excel_data(fileName, sheet = "Raw")
+  # # read raw data file
   XFe96data <- read_excel(fileName, sheet = "Raw")
   
   # get assay info and set parameters

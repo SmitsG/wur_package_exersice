@@ -1,8 +1,8 @@
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
+# Produced by: Gerwin Smits
+# Date: 24 May 2022
+# Description: Importing data
+
+
 # You can learn more about package authoring with RStudio at:
 #
 #   http://r-pkgs.had.co.nz/
@@ -20,14 +20,47 @@ library(testthat)
 library(devtools)
 library(roxygen2)
 
+parser <- ArgumentParser(description='Import data')
+parser$add_argument('--excel_file', metavar='N', type="character", nargs='+', help='import file path')
+
+parser = ArgumentParser(prog='rwave', add_help=FALSE)
+import_data = parser$add_argument_group('import_data', 'commands for importing data')
+import_data$add_argument('--excel_file', metavar='N', type="character", nargs='+', help='import file path')
+export_data = parser$add_argument_group('export_data', 'commands for exporting data')
+export_data$add_argument('--export_file', type="character", help='export the excel')
+parser$print_help()
+
+parser = ArgumentParser(prog='rwave', add_help=FALSE)
+data_import_export = parser$add_argument_group('import_data', 'imports your data')
+import_data$add_argument('--excel_data_import', help='import your excel data')
+import_data$add_argument('--csv_data_import', help='import your csv data')
+preprocess_data = parser$add_argument_group('convert_date_time', 'converts the date-time to work with')
+export_data$add_argument('--convert_date_1', help='export your excel data')
+export_data$add_argument('--convert_date_2', help='export your excel data')
+parser$print_help()
+parser$print_help()
+
+parser = ArgumentParser(prog='rwave')
+import_data = parser$add_mutually_exclusive_group()
+import_data$add_argument('--import', action='store_true')
+import_data$add_argument('--export', action='store_false')
+parser$parse_args('--import')
+
+
+
+
+
+
 # get the project directory of the working directory
 working_directory <- getwd()
+
+
 
 # get the path to the data Excel file.
 excel_data_path <- paste(c(working_directory, "data/raw_data/data.xlsx"), collapse="/")
 
 ## To show sheetnames of the Excel file use the following command:
-# excel_sheets(excel_data_path)
+excel_sheets(excel_data_path)
 
 #' Imports an excel file.
 #'
@@ -44,25 +77,27 @@ excel_data_path <- paste(c(working_directory, "data/raw_data/data.xlsx"), collap
 import_excel_data <- function(excel_data_path, sheet=NULL, range = NULL, col_names = TRUE, col_types = NULL) {
   out <- tryCatch(
     {
-      message("Import data")
+      print(typeof(excel_data_path))
+      log_info("Importing data.")
       readxl::read_excel(excel_data_path,
                  sheet = sheet,
                  range = range,
                  col_names = col_names,
                  col_types = col_types)
+      log_info("The data has been imported.")
     },
     error=function(err) {
-      print(err)
       # Show the error message.
-      x <- cat("ERROR :", conditionMessage(err), "\n")
-      return(x)
+      cat("ERROR :", conditionMessage(err), "\n")
       log_error(conditionMessage(err), "\n")
+      log_info("quiting program")
     },
     warning=function(war) {
       # Show the warning message.
-      x<- cat("WARNING :", conditionMessage(war), "\n")
-      return(x)
+      cat("WARNING :", conditionMessage(war), "\n")
       log_warn(conditionMessage(war), "\n")
+      log_info("quiting program")
+      quit()
     },
     finally={
       print("finally Executed")
@@ -71,4 +106,5 @@ import_excel_data <- function(excel_data_path, sheet=NULL, range = NULL, col_nam
   return(out)
 }
 
-import_excel_data(excel_data_path, sheet = "Raw")
+# return list with tibble.
+out <- import_excel_data(excel_data_path, sheet = "Raw")

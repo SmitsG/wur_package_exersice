@@ -4,3 +4,6 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^\.github$
+^WurPackageExersice\.Rcheck$
+^WurPackageExersice.*\.tar\.gz$
+^WurPackageExersice.*\.tgz$
