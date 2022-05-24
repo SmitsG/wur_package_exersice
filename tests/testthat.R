@@ -1,4 +1,5 @@
 library(testthat)
-library(exersize6)
+library(WurPackageExersice)
 
-test_check("exersize6")
+# test_check("exersize6")
+test_check("WurPackageExersice")

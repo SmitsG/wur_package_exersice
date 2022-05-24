@@ -180,7 +180,7 @@ get_assay_info_new <- function(fileName) {
     O2_0_mmHg,
     O2_0_mM
   )
-  
+  print(typeof(plate_df))
   return(tibbler)
 }
 
