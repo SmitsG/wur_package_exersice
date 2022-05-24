@@ -132,12 +132,12 @@ shinyApp( ####
                          menuSubItem("Range Plot Emissions",
                                      tabName = "make_range_plot"
                          ),
-                         menuSubItem("Heatmap",
-                                     tabName = "heatmap_group"
+                         menuSubItem("Group location",
+                                     tabName = "group_location"
                          ),
-                         menuSubItem("Wells first ticks",
-                                     tabName = "allWells_firstTicks"
-                         ),
+                         # menuSubItem("Wells first ticks",
+                         #             tabName = "allWells_firstTicks"
+                         # ),
                          menuSubItem("Background Quality Control",
                                      tabName = "bkg_quality"
                          )
@@ -520,11 +520,11 @@ shinyApp( ####
                 ),
                 # Chart page 6.
                 tabItem(
-                    "heatmap_group",
+                    "group_location",
                     fluidRow(
                         box(
                             width = 4,
-                            title = "Heatmap Group",
+                            title = "Group location",
                             status = "primary",
                             solidHeader = TRUE,
                             box(
@@ -537,7 +537,7 @@ shinyApp( ####
                                   Each group is represented with a different color. When the user presses the <em>'Visualize Analysis'</em> button, 
                                   a plot will be created. </p>"
                                 ),
-                                actionButton("heatmap_group_action_button",
+                                actionButton("group_location_action_button",
                                              "Visualize Analysis",
                                              icon("play"),
                                              style =
@@ -550,10 +550,10 @@ shinyApp( ####
                         mainPanel(
                             box(
                                 width = 12,
-                                title = "Heatmap Group",
+                                title = "Group location",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                ggiraphOutput("heatmap_group")
+                                ggiraphOutput("group_location")
                             )
                         )
                     )
@@ -898,10 +898,10 @@ shinyApp( ####
           })
         })
         
-        observeEvent(input$heatmap_group_action_button, {
+        observeEvent(input$group_location_action_button, {
           # 'Charts' tab > 'Heatmap' 
-          # Provides the user with an image of the position of different Seahorse groups, on a 96-well Seahorse plate.
-          output$heatmap_group <- renderggiraph({
+          # Provides the user with an image of the location of different Seahorse groups, on a 96-well Seahorse plate.
+          output$group_location <- renderggiraph({
             levels(as.factor(XFe96data$group))
             gg <- heatmap_groupMaker(XFe96data, input$file$name)
             return(girafe(
@@ -1093,9 +1093,9 @@ shinyApp( ####
             #   })
             # })
             
-            observeEvent(input$heatmap_group_action_button, {
+            observeEvent(input$group_location_action_button, {
               # Plate layout heatmap
-              output$heatmap_group <- renderggiraph({
+              output$group_postion <- renderggiraph({
                 levels(as.factor(XFe96data$group))
                 gg <- heatmap_groupMaker(XFe96data, input$file$name)
                 return(girafe(
