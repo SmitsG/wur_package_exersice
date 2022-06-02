@@ -14,11 +14,13 @@ library(validate)
 # Get the project directory of the rwave.Rproj script.
 # The current absolute path contains /script/shiny/
 working_directory <- getwd()
+print(working_directory)
 # Go 2 steps back in the absolute path, with ../..
 working_directory <- setwd('../..')
 # So you get the absolute path of the rwave.Rproj file.
 # This path contains all directories with the nessecary functions inside. 
 working_directory <- getwd()
+
 
 # Source the libraries.
 # Use the paste function to concatenate paths. 
@@ -28,8 +30,8 @@ source(paste(working_directory,"/R/funs_preprocess_plate_data_new.R", sep=""))
 source(paste(working_directory,"/R/background_QC_module_forShiny.R", sep=""))
 
 
-check_excel_sheet <- function(fileName){
-  sheets <- readxl::excel_sheets(fileName)
+check_excel_sheet <- function(filePathSeahorse){
+  sheets <- readxl::excel_sheets(filePathSeahorse)
   if ('Raw' %in% sheets) {
     "The Excel file contains a Raw sheet and is most likely a Seahorse file"
   } else {
@@ -38,12 +40,20 @@ check_excel_sheet <- function(fileName){
 }
   
 
-
-### function: bkg_quality_check (For PBMC Seahorse data) ####
-# A bkg_quality_check function, which adds a quality score to the background wells. 
-# The quality will be visualized within a quality chart, and quality boxes. 
-# High quality means less techniqual variation. Note: Because PBMC data is used as a reference, you will
-# only get a reliable results for imported PBMC data sets.
+#' Title ### function: bkg_quality_check (For PBMC Seahorse data) ####
+#' A bkg_quality_check function, which adds a quality score to the background wells. 
+#' The quality will be visualized within a quality chart, and quality boxes. 
+#' High quality means less techniqual variation. Note: Because PBMC data is used as a reference, you will
+#' only get a reliable results for imported PBMC data sets.
+#'
+#' @param input Inputs are what gives users a way to interact with a Shiny app.
+#' @param output Shiny provides a family of functions that turn R objects into output for your user interface
+#' @param XFe96data_tibble 
+#'
+#' @return
+#' @export
+#'
+#' @examples bkg_quality_check(input, output, XFe96data_tibble)
 bkg_quality_check <- function(input, output, XFe96data_tibble){
     # Get all background quality scores in a list (well_scores, plate_scores, plots and colors).
     background_qc <- background_QC_1(XFe96data_tibble, working_directory)
@@ -718,8 +728,8 @@ shinyApp( ####
       # Used for 'import file' function at the 'import' tab.
       options(shiny.maxRequestSize = 30 * 1024^2)
       
-      ### 1. The app will run a test data set (20191219 SciRep PBMCs donor A.xlsx) when the applications starts. ####
-        flnme <- file.path(working_directory, paste("data/raw_data/20191219 SciRep PBMCs donor A.xlsx"))
+      ### 1. The app will run a test data set (20191219_SciRep_PBMCs_donor_A.xlsx) when the applications starts. ####
+        flnme <- file.path(working_directory, paste("data/raw_data/20191219_SciRep_PBMCs_donor_A.xlsx"))
         injscheme <- "HAP"
         # read the plate data and return plate information (plate_df).
         plate_df <- read_plate_data(flnme, injscheme)
@@ -734,6 +744,7 @@ shinyApp( ####
         # Combine dataframe. Same as XFe96data_tibble$raw_data, changes the 'list with tibble' structure [[1]] to a normal data frame structure. 
         # So you can work with it more easily.
         total_df <- do.call(rbind.data.frame, XFe96data_tibble$raw_data)
+        print(total_df)
         # Extracts assay info list. Results will be visualized in the 'Data' tab.
         assay_info <- XFe96data_tibble[[4]]
         # Get the first value of the assay info list (which is list with tibble)
@@ -742,7 +753,9 @@ shinyApp( ####
         O2_targetEmission <- assay_info[[12]]
         # Get the pH_targetEmission
         pH_targetEmission <- assay_info[[11]]
+        
         # Get most relevant assay info.
+        
         
         # Assay info: Cartridge Barcode
         output$assay_cartridge_barcode <- renderText({
@@ -903,9 +916,9 @@ shinyApp( ####
           # Provides the user with an image of the location of different Seahorse groups, on a 96-well Seahorse plate.
           output$group_location <- renderggiraph({
             levels(as.factor(XFe96data$group))
-            gg <- heatmap_groupMaker(XFe96data, input$file$name)
+            gg_plot <- heatmap_groupMaker(XFe96data, input$file$name)
             return(girafe(
-              ggobj = gg,
+              ggobj = gg_plot,
               width_svg = (60),
               height_svg = (40)
             ))
@@ -935,7 +948,7 @@ shinyApp( ####
       ### 2. Analysis will run when the user imports a Seahorse .xlsx dataset. (located at the import data tab) ####
         
         observeEvent(input$file, {
-
+             print(pH_targetEmission)
           
             # Some general info about the imported file. Note: only readable for programmers so could be removed.
             output$file_input_class <- 
