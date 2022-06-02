@@ -20,41 +20,9 @@ library(testthat)
 library(devtools)
 library(roxygen2)
 
-parser <- ArgumentParser(description='Import data')
-parser$add_argument('--excel_file', metavar='N', type="character", nargs='+', help='import file path')
-
-parser = ArgumentParser(prog='rwave', add_help=FALSE)
-import_data = parser$add_argument_group('import_data', 'commands for importing data')
-import_data$add_argument('--excel_file', metavar='N', type="character", nargs='+', help='import file path')
-export_data = parser$add_argument_group('export_data', 'commands for exporting data')
-export_data$add_argument('--export_file', type="character", help='export the excel')
-parser$print_help()
-
-parser = ArgumentParser(prog='rwave', add_help=FALSE)
-data_import_export = parser$add_argument_group('import_data', 'imports your data')
-import_data$add_argument('--excel_data_import', help='import your excel data')
-import_data$add_argument('--csv_data_import', help='import your csv data')
-preprocess_data = parser$add_argument_group('convert_date_time', 'converts the date-time to work with')
-export_data$add_argument('--convert_date_1', help='export your excel data')
-export_data$add_argument('--convert_date_2', help='export your excel data')
-parser$print_help()
-parser$print_help()
-
-parser = ArgumentParser(prog='rwave')
-import_data = parser$add_mutually_exclusive_group()
-import_data$add_argument('--import', action='store_true')
-import_data$add_argument('--export', action='store_false')
-parser$parse_args('--import')
-
-
-
-
-
 
 # get the project directory of the working directory
 working_directory <- getwd()
-
-
 
 # get the path to the data Excel file.
 excel_data_path <- paste(c(working_directory, "data/raw_data/data.xlsx"), collapse="/")
