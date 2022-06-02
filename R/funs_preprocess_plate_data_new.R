@@ -20,7 +20,7 @@ library(readxl)
 #'   * calculating raw pH emission data
 #'   
 #' @param plate_df A list of all data read from the original excel wace exported file
-#' @return a list with the new dataframe and the assay_info. A new dataframe called XFe96data is returned. 
+#' @return XFe96data_tibble : a list with the new dataframe and the assay_info. A new dataframe called XFe96data_tibble is returned. 
 #' The preprocessed dataframe has the following columns:
 #'   * plate_id
 #'   * well
@@ -53,7 +53,7 @@ preprocess_plate_data_2 <- function(plate_df) {
   norm_info <- plate_df[[5]]
   bufferfactor <- plate_df[[6]]
   OCR_from_excel <- plate_df[[7]]
-  fileName <- plate_df[[8]]
+  filePathSeahorse <- plate_df[[8]]
   # flagged_wells <- plate_df[[9]]
   
   # rename columns
@@ -118,12 +118,12 @@ preprocess_plate_data_2 <- function(plate_df) {
   XFe96data_tibble <- XFe96data %>% 
     group_by(plate_id) %>% 
     nest() %>% 
-    mutate(fileName = fileName,
+    mutate(filePathSeahorse = filePathSeahorse,
            date = assay_info$date_run,
            assay_info = list(tibble(assay_info)),
            OCR_from_excel = list(tibble(OCR_from_excel)),
            injection_info = list(tibble(injection_info))) %>% 
-    select(plate_id, fileName, date, assay_info, injection_info, raw_data = data, rate_data = OCR_from_excel)
+    select(plate_id, filePathSeahorse, date, assay_info, injection_info, raw_data = data, rate_data = OCR_from_excel)
   
   assay_info <- XFe96data_tibble[[4]]
   assay_info <- assay_info[[1]]
