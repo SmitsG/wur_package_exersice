@@ -7,15 +7,19 @@ library(bayestestR)
 library(ggiraph)
 library(dplyr)
 
-#' Title
+#' Title: Get the quality information of the background wells, which gives us information about techniqual variation of our analysis.
 #'
-#' @param well_scores_tibble_list 
-#' @param plate_scores_tibble_list 
+#' @param well_scores_tibble_list tibble with well scores
+#' @param plate_scores_tibble_list tibble with plate scores
 #'
-#' @return
+#' @return qc_color_list : a list which includes: wells ["A12" "H12" "H01" "A01"]
+#'                                                score [6  7 16 11], 
+#'                                                color ["green"  "green"  "red"    "orange"], 
+#'                                                plate_id [ "V0174416419V"] 
+#'                                                and plate_score [7]
 #' @export
 #'
-#' @examples
+#' @examples get_bkg_quality_colors(well_scores_tibble_list, plate_scores_tibble_list)
 get_bkg_quality_colors <- function(well_scores_tibble_list, plate_scores_tibble_list){
   # Add the right color to the data
   # (green = good quality, orange = medium quality, red = bad quality)
@@ -92,21 +96,22 @@ get_bkg_quality_colors <- function(well_scores_tibble_list, plate_scores_tibble_
                         "plate_id" = plate_id, 
                         "plate_score" = plate_score, 
                         "plate_color" = plate_color)
+
   return(qc_color_list)
   
 }
 
-# function used to collect background parameters
-#' Title
+
+#' Title function used to collect background parameters
 #'
-#' @param total_df 
-#' @param var 
-#' @param targetEMS 
+#' @param total_df The preprocessed Raw data sheet of the Seahorse Excel file (converted from .asyr)
+#' @param var The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"
+#' @param targetEMS The target Emission (12500 Au environmental fluorescence emission)
 #'
-#' @return
+#' @return AUC_bkgd background parameters for area under the curve
 #' @export
 #'
-#' @examples
+#' @examples get_BKGD_auc(total_df, "O2_em_corr", 12500)
 get_BKGD_auc <- function(total_df, var, targetEMS){
   
   background_drift <- function(x,y){
@@ -149,15 +154,14 @@ get_BKGD_auc <- function(total_df, var, targetEMS){
   }
   return(AUC_bkgd)
 }
-
-#functions for calculating the scores per plate
-#' Title
+# functions for calculating the scores per plate
+#' Title calculating the scores per plate
 #'
-#' @param df 
-#' @param qc 
-#' @param var 
+#' @param df stat summaries for NEW PLATES - well
+#' @param qc The stats for the complete PBMC dataset - well stats
+#' @param var name of the variable ("Maximum", "Minimum", "Range(F-L)", "First", "Last", "Range(M-M)")
 #'
-#' @return
+#' @return scores per plate
 #' @export
 #'
 #' @examples
@@ -220,12 +224,14 @@ get_plate_scores <- function(df, qc_plate){
 #'
 #' @examples
 background_QC_1 <- function(XFe96data_tibble, working_directory){
-  #adjusted skim function
+  # adjusted skim function
+  # skimr is designed to provide summary statistics about variables in data frames, tibbles, data tables and vectors. 
+  # It is opinionated in its defaults, but easy to modify.
   my_skim <- skimr::skim_with(numeric = skimr::sfl(iqr = IQR, p0 = NULL,p50 = NULL,p100 = NULL,
                                                    mean = NULL,sd = NULL,hist = NULL))
   
   ########
-  #read the reference dataset
+  #read the reference dataset (PBMC data)
   bkgQC_PBMC_large <- readRDS(file = paste(working_directory, "/data/raw_data/bkgQC_PBMC_large.Rda", sep="")) #please note the missing "d" in filename
   #calculate plate stats
   plate_stats <- bkgQC_PBMC_large %>%
@@ -327,7 +333,7 @@ background_QC_1 <- function(XFe96data_tibble, working_directory){
   # XFe96data_tibble <- preprocess_plate_data_2(plate_df)
   
   one_plate <- XFe96data_tibble %>%
-    select(plate_id, raw_data, fileName) %>%
+    select(plate_id, raw_data, filePathSeahorse) %>%
     slice(1) %>% # get first plate
     unnest(cols = c(raw_data)) %>%
     group_by(well, measurement) %>% 
@@ -342,6 +348,7 @@ background_QC_1 <- function(XFe96data_tibble, working_directory){
     scale_color_manual_interactive(values = custom.col)+
     labs(title = paste0(one_plate$plate_id))
   bkgd_plot_xfe96data 
+  
   
   # plate 1 in my_data_PBMC
   one_plate <- my_data_PBMC %>% 

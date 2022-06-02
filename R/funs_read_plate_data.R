@@ -2,43 +2,47 @@
 # vincent de boer
 # December 29th, 2021
 
-# This was created to have a separate read and validate script, the 
-# original script was the funs_preprocess_plate_data.r file
-
 library(tidyverse)
 library(readxl)
 library(tidyxl)
+library(logger)
 
 # read_plate_data() -------------------------------------------------------
-#' Title
+#' Title : Read Plate data to return all nessecary Seahorse information.
 #'
-#' @param fileName 
-#' @param injscheme 
+#' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
+#' @param injscheme Type of injection Scheme
 #'
-#' @return
+#' @return plate_df with all the information important data derived from the Seahorse Excel file.
 #' @export
 #'
-#' @examples
-read_plate_data <- function(fileName, injscheme) {
-  sheets <- readxl::excel_sheets(fileName)
+#' @examples 
+#' read_plate_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "HAP")
+#' read_plate_data("data/PBMC/sci_rep/20200110 SciRep PBMCs donor B.xlsx", "HAP)
+#' read_plate_data("data/PBMC/sci_rep/20200110 SciRep PBMCs donor C.xlsx", "HAP)
+read_plate_data <- function(filePathSeahorse, injscheme) {
+  log_info("Start reading plate data to return all nessecary Seahorse information")
+  # Show the sheets of the excel file.
+  sheets <- readxl::excel_sheets(filePathSeahorse)
 
-  # XFe96data <- WurPackageExersice::import_excel_data(fileName, sheet = "Raw")
-  # # read raw data file
-  XFe96data <- read_excel(fileName, sheet = "Raw")
+  # XFe96data <- WurPackageExersice::import_excel_data(filePathSeahorse, sheet = "Raw")
   
-  # get assay info and set parameters
-  assay_info <- get_assay_info_new(fileName)
+  # read_excel reads the 'Raw' data sheet from the Seahorse Excel file.
+  XFe96data <- read_excel(filePathSeahorse, sheet = "Raw")
+  
+  # get Assay information from the Seahorse Assay Configuratoin file and set parameters from the Seahorse Excel file.
+  assay_info <- get_assay_info(filePathSeahorse)
   
   # get the interval and injection info
   if (injscheme == "HAP") {
-    injection_info <- get_injection_info_H(fileName)
+    injection_info <- get_injection_info_H(filePathSeahorse)
   }
   
   if (injscheme == "Maas") {
-    injection_info <- get_injection_info_M(fileName)
+    injection_info <- get_injection_info_M(filePathSeahorse)
   }
-  # get the norm info
-  norm_info <- get_platelayout_data(fileName,
+  # get the norm info (Normalization Values: )
+  norm_info <- get_platelayout_data(filePathSeahorse,
                                     my_sheet = "Assay Configuration",
                                     my_range = "B84:N92",
                                     my_param = "cell_n"
@@ -52,7 +56,7 @@ read_plate_data <- function(fileName, injscheme) {
     norm_available <- TRUE}
   
   # get the buffer factor (capacity) info
-  bufferfactor_info <- get_platelayout_data(fileName,
+  bufferfactor_info <- get_platelayout_data(filePathSeahorse,
                                             my_sheet = "Assay Configuration",
                                             my_range = "B96:N104",
                                             my_param = "bufferfactor"
@@ -60,14 +64,14 @@ read_plate_data <- function(fileName, injscheme) {
   )
   
   # get the pH calibration emission data
-  pH_calibration <- get_platelayout_data(fileName,
+  pH_calibration <- get_platelayout_data(filePathSeahorse,
                                          my_sheet = "Calibration",
                                          my_range = "P16:AB24",
                                          my_param = "pH_cal_em"
   )
   
   # get the OCR from the excel file
-  OCR_from_excel_list <- get_originalRateTable(fileName)
+  OCR_from_excel_list <- get_originalRateTable(filePathSeahorse)
   OCR_from_excel <- OCR_from_excel_list[[1]]
   
   # add info to assay_info
@@ -75,7 +79,7 @@ read_plate_data <- function(fileName, injscheme) {
   assay_info$excel_OCR_background_corrected <- OCR_from_excel_list[[2]] #mark whether excel_ocr data is background corrected
   
   # get the flagged wells and assign to logical column in raw and rate
-  # flagged_wells <- get_flagged_wells(fileName)
+  # flagged_wells <- get_flagged_wells(filePathSeahorse)
   
   # make the output list
   plate_df <- list(
@@ -86,54 +90,55 @@ read_plate_data <- function(fileName, injscheme) {
     norm_info = norm_info, #return only the data not the logical
     bufferfactor_info = bufferfactor_info,
     OCR_from_excel = OCR_from_excel, #return only the data not the logical
-    fileName = fileName
+    filePathSeahorse = filePathSeahorse
     # flagged_wells = flagged_wells
   )
-  
+  log_info("Reading plate data finished, returning plate_df.")
   return(plate_df)
 }
 
-## get_assay_info_new() ----------------------------------------------------
-#' Title
+## get_assay_info() ----------------------------------------------------
+#' Title : Get useful information from the Assay Configuration sheet from the Seahorse Excel file.
 #'
-#' @param fileName 
+#' @param filePathSeahorse 
 #'
-#' @return
+#' @return assayConfigurationTibble : A tibble with all the nessecary information derived from the Seahorse Assay Configuration sheet.
 #' @export
 #'
 #' @examples
-get_assay_info_new <- function(fileName) {
-  
-  # read Assay Configuration sheet
-  meta_df <- read_excel(fileName,
+get_assay_info <- function(filePathSeahorse) {
+
+  # read Assay Configuration sheet from the Seahorse Exel file. 
+  meta_df <- read_excel(filePathSeahorse,
                         sheet = "Assay Configuration",
                         col_names = c("parameter", "value"),
                         range = "A1:B83"
   )
   meta_df <- meta_df[!is.na(meta_df$parameter), ]
   
-  # read Assay Configuration sheet gain1
-  gain1 <- read_excel(fileName,
+  # read Assay Configuration sheet gain1 (Gain Equation)
+  gain1 <- read_excel(filePathSeahorse,
                       sheet = "Assay Configuration",
                       col_names = c("value"),
                       range = "D70"
   )
   
-  # read Assay Configuration sheet gain2
-  gain2 <- read_excel(fileName,
+  # read Assay Configuration sheet gain2 (Gain Equation)
+  gain2 <- read_excel(filePathSeahorse,
                       sheet = "Assay Configuration",
                       col_names = c("value"),
                       range = "E70"
   )
   
-  # read target emission cells
-  O2_target_emission <- read_excel(fileName,
+  # read O2 target emission cells (O2 Target Emission)
+  O2_target_emission <- read_excel(filePathSeahorse,
                                    sheet = "Calibration",
                                    col_names = FALSE,
                                    range = "B4"
   )
   
-  pH_target_emission <- read_excel(fileName,
+  # read pH target emission cells (pH Target Emission)
+  pH_target_emission <- read_excel(filePathSeahorse,
                                    sheet = "Calibration",
                                    col_names = FALSE,
                                    range = "P4"
@@ -162,7 +167,7 @@ get_assay_info_new <- function(fileName) {
   O2_0_mmHg <- 151.6900241
   O2_0_mM <- 0.214
   
-  tibbler <- tibble(
+  assayConfigurationTibble <- tibble(
     F0,
     V_C,
     Tau_AC, Tau_W,
@@ -181,8 +186,7 @@ get_assay_info_new <- function(fileName) {
     O2_0_mmHg,
     O2_0_mM
   )
-  print(typeof(plate_df))
-  return(tibbler)
+  return(assayConfigurationTibble)
 }
 
 ## get_injection_info_H() --------------------------------------------------
@@ -194,16 +198,16 @@ get_assay_info_new <- function(fileName) {
 #'   "operation log file". The other (get_injection_info_M) function uses a manual assignment of the injection names.
 #'   In both cases, the number of measurements per injection ARE read by the function
 #'   
-#' @param fileName The name of the file that is being processed
+#' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.
 #'
 #' @return A new dataframe called measurement_info The df has three columns: 
 #'   $measurement, $interval, $injection
 #' @examples
-#' get_injection_info_H(fileName)
-get_injection_info_H <- function (fileName){
+#' get_injection_info_H(filePathSeahorse)
+get_injection_info_H <- function (filePathSeahorse){
   
   #read injection strategy and measurements
-  suppressMessages(info_sh<-read_excel(fileName, sheet = "Operation Log")
+  suppressMessages(info_sh<-read_excel(filePathSeahorse, sheet = "Operation Log")
   )
   colnames(info_sh) <- c("instruction_name","command_name","command_index","start_time","end_time", "completion_status")
   
@@ -227,15 +231,15 @@ get_injection_info_H <- function (fileName){
 #'   In both cases, the number of measurements per injection ARE read by the function.
 #'   The default names for the get_injection_info_M are c("basal", "OM", "FCCP", "AM/rot").
 #'   
-#' @param fileName The name of the file that is being processed
+#' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.
 #' @return A new dataframe called measurement_info The df has three columns: 
 #'   $measurement, $interval, $injection
 #' @examples
-#' get_injection_info_M(fileName)
-get_injection_info_M <- function (fileName){
+#' get_injection_info_M(filePathSeahorse)
+get_injection_info_M <- function (filePathSeahorse){
   
   #read injection strategy and measurements
-  suppressMessages(info_sh<-read_excel(fileName, sheet = "Operation Log")
+  suppressMessages(info_sh<-read_excel(filePathSeahorse, sheet = "Operation Log")
   )
   
   colnames(info_sh) <- c("instruction_name","command_name","command_index","start_time","end_time", "completion_status")
@@ -275,20 +279,20 @@ get_injection_info_M <- function (fileName){
 
 
 ## get_platelayout_data() -------------------------------------------------
-#' Title
+#' Title: Get plate layout data.
 #'
-#' @param fileName 
-#' @param my_sheet 
-#' @param my_range 
-#' @param my_param 
+#' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.
+#' @param my_sheet Sheet of the Seahorse Excel file
+#' @param my_range Range of the cells in the Seahorse Excel file
+#' @param my_param Summarised name of the parameter which will include the data that is collected
 #'
-#' @return
+#' @return dataframe with plate layout data.
 #' @export
 #'
-#' @examples
-get_platelayout_data <- function(fileName, my_sheet,my_range, my_param ){
+#' @examples get_platelayout_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "Assay Configuration", "B96:N104", "bufferfactor")
+get_platelayout_data <- function(filePathSeahorse, my_sheet,my_range, my_param ){
   
-  df <- read_excel(fileName, sheet = my_sheet, range = my_range)
+  df <- read_excel(filePathSeahorse, sheet = my_sheet, range = my_range)
   
   colnames(df)[1] <- "firstCol"
   
@@ -317,17 +321,20 @@ get_platelayout_data <- function(fileName, my_sheet,my_range, my_param ){
 ## get_originalRateTable() -------------------------------------------------
 
 
-#' Title
+#' Title: 
 #'
-#' @param fileName 
+#' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
 #'
-#' @return
-#' @export
+#' @return original_rate_df_list
+#' @export 
 #'
 #' @examples
-get_originalRateTable<- function(fileName){
-  
-  original_rate_df <-read_excel(fileName, sheet = "Rate")
+#' get_originalRateTable("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx")
+#' get_originalRateTable("data/PBMC/sci_rep/20200110 SciRep PBMCs donor B.xlsx")
+#' get_originalRateTable("data/PBMC/sci_rep/20200110 SciRep PBMCs donor C.xlsx")
+get_originalRateTable<- function(filePathSeahorse){
+  # 
+  original_rate_df <-read_excel(filePathSeahorse, sheet = "Rate")
   
   # because rate data can be either background corrected or not this should be checked first
   check_background <- original_rate_df %>% filter(Group == "Background") %>% select(OCR) %>% 
@@ -375,20 +382,22 @@ get_originalRateTable<- function(fileName){
 
 ## get_flagged_wells() -----------------------------------------------------
 
-#' Title
+#' Title: Get the flagged (unselected) wells of the Seahorse Excel data
 #'
-#' @param fileName 
+#' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
 #'
-#' @return
+#' @return flagged_vector
 #' @export
 #'
 #' @examples
-get_flagged_wells <- function(fileName){
+#' get_flagged_wells("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx")
+#' 
+get_flagged_wells <- function(filePathSeahorse){
   
   #read excel file using todyxl
   
-  x <- xlsx_cells(fileName, "Assay Configuration", include_blank_cells = FALSE)
-  formats <- xlsx_formats(fileName, "Assay Configuration", include_blank_cells = FALSE)
+  x <- xlsx_cells(filePathSeahorse, "Assay Configuration", include_blank_cells = FALSE)
+  formats <- xlsx_formats(filePathSeahorse, "Assay Configuration", include_blank_cells = FALSE)
   
   # subset to only the platelayout with the cells that show the "unselected" wells by user
   subset_x <- x %>% filter(row %in% c(12:19)) %>% filter(col %in% c(3:14))
@@ -422,12 +431,6 @@ get_flagged_wells <- function(fileName){
   flagged_vector <- paste0(new_row_names, new_col_names)
   
   return(flagged_vector)
-}
-
-# validate_plate_data() ---------------------------------------------------
-validate_plate_data <- function(plate_df){
-  
-  
 }
 
 
