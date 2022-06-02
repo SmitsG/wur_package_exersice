@@ -4,10 +4,10 @@
 \alias{get_flagged_wells}
 \title{Title}
 \usage{
-get_flagged_wells(fileName)
+get_flagged_wells(filePathSeahorse)
 }
 \arguments{
-\item{fileName}{}
+\item{filePathSeahorse}{}
 }
 \value{
 

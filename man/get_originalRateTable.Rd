@@ -4,10 +4,10 @@
 \alias{get_originalRateTable}
 \title{Title}
 \usage{
-get_originalRateTable(fileName)
+get_originalRateTable(filePathSeahorse)
 }
 \arguments{
-\item{fileName}{}
+\item{filePathSeahorse}{}
 }
 \value{
 

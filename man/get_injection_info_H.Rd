@@ -4,10 +4,10 @@
 \alias{get_injection_info_H}
 \title{Read the injection information from the "Operation log" sheet H-version}
 \usage{
-get_injection_info_H(fileName)
+get_injection_info_H(filePathSeahorse)
 }
 \arguments{
-\item{fileName}{The name of the file that is being processed}
+\item{filePathSeahorse}{The name of the file that is being processed}
 }
 \value{
 A new dataframe called measurement_info The df has three columns: 
@@ -20,5 +20,5 @@ IMPORTANT: the output of the injection information is different on different XFe
   In both cases, the number of measurements per injection ARE read by the function
 }
 \examples{
-get_injection_info_H(fileName)
+get_injection_info_H(filePathSeahorse)
 }

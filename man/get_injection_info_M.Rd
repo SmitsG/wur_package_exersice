@@ -4,10 +4,10 @@
 \alias{get_injection_info_M}
 \title{Read the injection information from the "Operation log" sheet M-version}
 \usage{
-get_injection_info_M(fileName)
+get_injection_info_M(filePathSeahorse)
 }
 \arguments{
-\item{fileName}{The name of the file that is being processed}
+\item{filePathSeahorse}{The name of the file that is being processed}
 }
 \value{
 A new dataframe called measurement_info The df has three columns: 
@@ -21,5 +21,5 @@ IMPORTANT: the output of the injection information is different on different XFe
   The default names for the get_injection_info_M are c("basal", "OM", "FCCP", "AM/rot").
 }
 \examples{
-get_injection_info_M(fileName)
+get_injection_info_M(filePathSeahorse)
 }

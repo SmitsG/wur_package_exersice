@@ -10,7 +10,7 @@ preprocess_plate_data_2(plate_df)
 \item{plate_df}{A list of all data read from the original excel wace exported file}
 }
 \value{
-a list with the new dataframe and the assay_info. A new dataframe called XFe96data is returned. 
+XFe96data_tibble : a list with the new dataframe and the assay_info. A new dataframe called XFe96data_tibble is returned. 
 The preprocessed dataframe has the following columns:
   * plate_id
   * well

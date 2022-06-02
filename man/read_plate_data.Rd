@@ -2,18 +2,21 @@
 % Please edit documentation in R/funs_read_plate_data.R
 \name{read_plate_data}
 \alias{read_plate_data}
-\title{Title}
+\title{Title : Read Plate data to return all nessecary Seahorse information.}
 \usage{
-read_plate_data(fileName, injscheme)
+read_plate_data(filePathSeahorse, injscheme)
 }
 \arguments{
-\item{fileName}{}
+\item{filePathSeahorse}{Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.}
 
-\item{injscheme}{}
+\item{injscheme}{Type of injection Scheme}
 }
 \value{
-
+plate_df with all the information important data derived from the Seahorse Excel file.
 }
 \description{
-Title
+Title : Read Plate data to return all nessecary Seahorse information.
+}
+\examples{
+read_plate_data()
 }

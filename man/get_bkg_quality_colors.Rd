@@ -7,8 +7,6 @@
 get_bkg_quality_colors(well_scores_tibble_list, plate_scores_tibble_list)
 }
 \arguments{
-\item{well_scores_tibble_list}{}
-
 \item{plate_scores_tibble_list}{}
 }
 \value{

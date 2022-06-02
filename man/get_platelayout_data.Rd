@@ -4,10 +4,10 @@
 \alias{get_platelayout_data}
 \title{Title}
 \usage{
-get_platelayout_data(fileName, my_sheet, my_range, my_param)
+get_platelayout_data(filePathSeahorse, my_sheet, my_range, my_param)
 }
 \arguments{
-\item{fileName}{}
+\item{filePathSeahorse}{}
 
 \item{my_sheet}{}
 
