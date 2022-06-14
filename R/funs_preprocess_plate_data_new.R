@@ -39,7 +39,11 @@ library(readxl)
 #'   * backgrounds for O2_em_corr, pH_em_corr, O2_mmHg, pH, pH_em_corr_corr
 #' 
 #' The assay_info has the following information:
-#'   * ....
+#'   # A tibble: 1 × 21
+#' F0   V_C Tau_AC Tau_W Tau_C Tau_P    KSV    gain1 gain2  pH_0 pH_targetEmission O2_targetEmission plate_id     cartridge_barco… date_run assay_name           
+#' <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl>  <dbl>    <dbl> <dbl> <dbl>             <dbl>             <dbl> <chr>        <chr>            <dttm>   <chr>                
+#'   1 54025.  9.15    746   296   246  60.9 0.0219 0.000405  1.01   7.4             30000             12500 V0174416419V W0013917519B**+… NA       20191219 SciRep PBMC…
+# … with 5 more variables: instrument_serial <chr>, O2_0_mmHg <dbl>, O2_0_mM <dbl>, norm_available <lgl>, excel_OCR_background_corrected <lgl>
 #'   
 #' @examples
 #' preprocess_plate_data(plate_df)
@@ -126,8 +130,8 @@ preprocess_plate_data_2 <- function(plate_df) {
     select(plate_id, filePathSeahorse, date, assay_info, injection_info, raw_data = data, rate_data = OCR_from_excel)
   
   assay_info <- XFe96data_tibble[[4]]
-  assay_info <- assay_info[[1]]
-  
+  assay_info <<- assay_info[[1]]
+  print(assay_info)
   return(XFe96data_tibble)
 }
 

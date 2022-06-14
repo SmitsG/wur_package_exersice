@@ -189,28 +189,36 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
     
 #' Title
 #'
-#' @param x temp_df$timescale
-#' @param y temp_df$emission
+#' @param x temp_df$timescale (exp. [1]   0  15  31  47  63  79  95 110 126 142 158 173 
+#'                                  [1] 328 344 360 375 391 407 423 439 455 470 486 502 etc.)
+#'                                  
+#' @param y temp_df$emission (exp. [1] 12422.08 12384.71 12365.38 12343.05 12321.03 12307.01 12295.71 12280.69 12270.68 12256.66 12246.65 12235.64
+#'                                 [1] 12466.85 12424.47 12397.12 12377.10 12357.78 12338.76 12324.74 12307.43 12295.42 12286.41 12273.40 12260.39 etc.)
 #'
-#' @return auc_func
+#' @return auc_func (exp. [1] 1.038633, [1] 1.138149, [1] 0.9902363 etc.)
 #' @export
 #'
-#' @examples
+#' @examples background_drift(temp_df$timescale, temp_df$emission)
+#' 
     background_drift <- function(x,y){
+      print(y)
       y <- y/min(y)-1
       auc_func <- area_under_curve(x, y, method = "trapezoid")
       return(auc_func)
     }
 #' Title
 #'
-#' @param x temp_df$timescale
-#' @param y temp_df$emission
+#' @param x temp_df$timescale (exp. [1]   0  15  31  47  63  79  95 110 126 142 158 173 
+    #'                                  [1] 328 344 360 375 391 407 423 439 455 470 486 502 etc.)
+    #'                                  
+#' @param y temp_df$emission (exp. [1] 12422.08 12384.71 12365.38 12343.05 12321.03 12307.01 12295.71 12280.69 12270.68 12256.66 12246.65 12235.64
+    #'                                 [1] 12466.85 12424.47 12397.12 12377.10 12357.78 12338.76 12324.74 12307.43 12295.42 12286.41 12273.40 12260.39 etc.)
 #' @param baseline 
 #'
-#' @return auc_func
+#' @return auc_func (exp. [1] 1.038633, [1] 1.138149, [1] 0.9902363 etc.)
 #' @export
 #'
-#' @examples
+#' @examples background_drift2(temp_df$timescale, temp_df$emission, targetEMS)
     background_drift2 <- function(x,y, baseline){
       y <- y-baseline
       auc_func <- area_under_curve(x, y, method = "trapezoid")
@@ -240,7 +248,7 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
     return(AUC_bkgd)
   }
   
-#' Title
+#' Title: make_raw_em_corr_BKGD_plot. 
 #'
 #' @param AUC_bkgd Area Under Curve background information
 #' @param var The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"
@@ -289,10 +297,10 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
 #plate layout
 #' Title: Visualises the layout of the Seahorse plate, through different colors.
 #'
-#' @param XFe96data A raw data sheet from a Seahorse Excel file (converted from .asyr file) which is put in a variable called XFe96data.
+#' @param XFe96data A Raw data sheet from a Seahorse Excel file (converted from .asyr file) which is put in a variable called XFe96data.
 #' @param flnme Name of the imported Seahorse file.
 #'
-#' @return  variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) of each background well, based on the area under the curve (auc).
+#' @return variable gg_plot which contains information about to plot the plate layout.
 #' @export
 #'
 #' @examples heatmap_groupMaker(XFe96data, "20191219_SciRep_PBMCs_donor_A")
