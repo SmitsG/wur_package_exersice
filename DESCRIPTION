@@ -4,7 +4,7 @@ Title: Testing out packages
 Version: 0.1.0
 Author: Gerwin Smits
 Maintainer: The package maintainer <gerwin.smits@wur.nl>
-Description: This is an exersice package to test packages
+Description: This is an application to visualise derived from Rwave.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
@@ -13,6 +13,17 @@ Suggests:
 Config/testthat/edition: 3
 RoxygenNote: 7.1.2
 Imports: 
+    dplyr,
+    ggiraph,
+    ggplot2,
+    ggridges,
+    logger,
     purrr,
+    RColorBrewer,
     readxl,
-    stringr
+    shiny,
+    shinydashboard,
+    shinydashboardPlus,
+    stringr,
+    tidyxl,
+    validate
