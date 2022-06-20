@@ -28,7 +28,6 @@ source(paste(working_directory,"/R/funs_read_plate_data.R", sep=""))
 source(paste(working_directory,"/R/funs_preprocess_plate_data_new.R", sep=""))
 source(paste(working_directory,"/R/background_QC_module_forShiny.R", sep=""))
 
-
 check_excel_sheet <- function(filePathSeahorse){
   sheets <- readxl::excel_sheets(filePathSeahorse)
   if ('Raw' %in% sheets) {
@@ -38,7 +37,6 @@ check_excel_sheet <- function(filePathSeahorse){
   }
 }
   
-
 #' Title ### function: bkg_quality_check (For PBMC Seahorse data) ####
 #' A bkg_quality_check function, which adds a quality score to the background wells. 
 #' The quality will be visualized within a quality chart, and quality boxes. 

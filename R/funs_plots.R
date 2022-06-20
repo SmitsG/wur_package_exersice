@@ -185,6 +185,16 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
                   "#382A40", "#C8B280", "#84A76B", "#303762", "#E194AE", "#00000", "#C8CFCB",
                   "#B293B9", "#9B4430")
   
+#' Title
+#'
+#' @param total_df 
+#' @param var 
+#' @param targetEMS 
+#'
+#' @return
+#' @export
+#'
+#' @examples
   get_BKGD_auc <- function(total_df, var, targetEMS){
     
 #' Title

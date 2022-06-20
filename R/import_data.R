@@ -45,7 +45,6 @@ excel_sheets(excel_data_path)
 import_excel_data <- function(excel_data_path, sheet=NULL, range = NULL, col_names = TRUE, col_types = NULL) {
   out <- tryCatch(
     {
-      print(typeof(excel_data_path))
       log_info("Importing data.")
       readxl::read_excel(excel_data_path,
                  sheet = sheet,

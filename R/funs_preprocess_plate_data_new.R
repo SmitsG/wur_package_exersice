@@ -131,7 +131,7 @@ preprocess_plate_data_2 <- function(plate_df) {
   
   assay_info <- XFe96data_tibble[[4]]
   assay_info <<- assay_info[[1]]
-  print(assay_info)
+  
   return(XFe96data_tibble)
 }
 

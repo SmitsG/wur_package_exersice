@@ -19,7 +19,7 @@ library(dplyr)
 #'2 A12             6
 #'3 H01            16
 #'4 H12             7
-#' Note: This is a tibble within a list.
+#' Note: Tibble is of type list
 #' 
 #' @param plate_scores_tibble_list tibble with plate scores
 #' 
@@ -28,10 +28,10 @@ library(dplyr)
 #' plate_id     total_score
 #' <chr>              <dbl>
 #' 1 V0174416419V      7
-#' Note: This is a tibble within a list.
+#' Note: Tibble is of type list
 #'
 #' @return qc_color_list : a list which includes: 
-#' wells ["A12" "H12" "H01" "A01"]
+#' wells #["A12" "H12" "H01" "A01"]
 #' score [6  7 16 11], 
 #' color ["green"  "green"  "red"    "orange"] # green means good quality, # orange means medium quality, red means bad quality, 
 #' plate_id [ "V0174416419V"] 
@@ -132,7 +132,7 @@ get_bkg_quality_colors <- function(well_scores_tibble_list, plate_scores_tibble_
 #'
 #' @return AUC_bkgd background parameters for area under the curve (in list)
 #' 
-#' # A tibble: 48 × 5 (note: tibble in list)
+#' # A tibble: 48 × 5 (note: Tibble is of type list)
 #' well  measurement      auc    auc2 dev_fromTarget
 #' <chr>       <dbl>    <dbl>   <dbl>          <dbl>
 #'   1 A01             1 0.00600  -33026.         -77.9 
@@ -328,7 +328,7 @@ get_well_scores <- function(df, qc_well){
 #' 2 Minimum               0             1 -610.  -367.  243.
 #' 3 Range(F-L)            0             1  459.   700.  241.
 #' 
-#' @return df with scores (note : this is a tibble in list)
+#' @return df with scores (note : Tibble is of type list)
 
 #' @examples get_plate_scores(df, qc_plate)
 #'

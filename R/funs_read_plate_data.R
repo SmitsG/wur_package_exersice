@@ -13,7 +13,7 @@ library(logger)
 #' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
 #' @param injscheme Type of injection Scheme
 #'
-#' @return plate_df with all the information important data derived from the Seahorse Excel file.
+#' @return plate_df tibble (Note: tibble has type list) with all the information important data derived from the Seahorse Excel file. 
 #' @export
 #'
 #' @examples 
@@ -94,13 +94,14 @@ read_plate_data <- function(filePathSeahorse, injscheme) {
     # flagged_wells = flagged_wells
   )
   log_info("Reading plate data finished, returning plate_df.")
+  
   return(plate_df)
 }
 
 ## get_assay_info() ----------------------------------------------------
 #' Title : Get useful information from the Assay Configuration sheet from the Seahorse Excel file.
 #'
-#' @param filePathSeahorse 
+#' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
 #'
 #' @return assayConfigurationTibble : A tibble with all the nessecary information derived from the Seahorse Assay Configuration sheet.
 #' @export
@@ -273,11 +274,6 @@ get_injection_info_M <- function (filePathSeahorse){
   return(measurement_info)
 }  #called in preprocessing
 
-
-
-
-
-
 ## get_platelayout_data() -------------------------------------------------
 #' Title: Get plate layout data.
 #'
@@ -432,5 +428,3 @@ get_flagged_wells <- function(filePathSeahorse){
   
   return(flagged_vector)
 }
-
-
