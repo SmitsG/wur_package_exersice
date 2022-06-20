@@ -14,7 +14,6 @@ library(validate)
 # Get the project directory of the rwave.Rproj script.
 # The current absolute path contains /script/shiny/
 working_directory <- getwd()
-print(working_directory)
 # Go 2 steps back in the absolute path, with ../..
 working_directory <- setwd('../..')
 # So you get the absolute path of the rwave.Rproj file.
@@ -744,7 +743,6 @@ shinyApp( ####
         # Combine dataframe. Same as XFe96data_tibble$raw_data, changes the 'list with tibble' structure [[1]] to a normal data frame structure. 
         # So you can work with it more easily.
         total_df <- do.call(rbind.data.frame, XFe96data_tibble$raw_data)
-        print(total_df)
         # Extracts assay info list. Results will be visualized in the 'Data' tab.
         assay_info <- XFe96data_tibble[[4]]
         # Get the first value of the assay info list (which is list with tibble)
@@ -948,7 +946,6 @@ shinyApp( ####
       ### 2. Analysis will run when the user imports a Seahorse .xlsx dataset. (located at the import data tab) ####
         
         observeEvent(input$file, {
-             print(pH_targetEmission)
           
             # Some general info about the imported file. Note: only readable for programmers so could be removed.
             output$file_input_class <- 
