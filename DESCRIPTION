@@ -11,7 +11,7 @@ LazyData: true
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     dplyr,
     ggiraph,
@@ -26,4 +26,14 @@ Imports:
     shinydashboardPlus,
     stringr,
     tidyxl,
-    validate
+    validate,
+    knitr,
+    tidyverse,
+    bayestestR,
+    here,
+    testthat,
+    devtools,
+    data.table (>= 1.9.8),
+    lubridate,
+    skimr,
+    tibble
