@@ -16,10 +16,9 @@ knitr::opts_chunk$set(
 # WurPackageExersice
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/SmitsG/wur_package_exersice/workflows/R-CMD-check/badge.svg)](https://github.com/SmitsG/wur_package_exersice/actions)
 <!-- badges: end -->
 
-The goal of WurPackageExersice is to import an Excel file and give an error or warning if the imported data doesn't meet expectations.
+The goal of WurPackageExersice is to ...
 
 ## Installation
 
@@ -30,19 +29,79 @@ You can install the development version of WurPackageExersice from [GitHub](http
 devtools::install_github("SmitsG/wur_package_exersice")
 ```
 
-## Example
+Set the working directory. 
 
-This is a basic example which shows you how to solve a common problem:
+This is the directory where the .Rproj file is located. 
 
-```{r example}
-library(WurPackageExersice)
-## basic example code
+Note: Our RWave App does this automaticly. (Through App.R)
+
+```{r working_directory}
+working_directory <- getwd()
+print(working_directory)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Source the functions and libraries. 
 
-```{r cars}
-WurPackageExersice::import_excel_data(excel_data_path, sheet = "Raw")
+Scripts are sourced to make the functions of our .R scripts available.
+
+Note: This is also done at our App.R.
+
+```{r source}
+# Source the libraries.
+# Use the paste function to concatenate paths. 
+source(paste(working_directory,"/R/funs_plots.R", sep=""))
+source(paste(working_directory,"/R/funs_read_plate_data.R", sep=""))
+source(paste(working_directory,"/R/funs_preprocess_plate_data_new.R", sep=""))
+source(paste(working_directory,"/R/background_QC_module_forShiny.R", sep=""))
+```
+
+The .asyr Wave file is imported into seahorseanalytics.agilent.com, followed by export to Excel. 
+
+The xls data files are used as input file.
+
+Set the file path to the Seahorse Excel file.
+
+The 'import data' tab from the Rwave Shiny app allows you to import your Excel data sheet. 
+
+The location of the Excel file will be used in our analysis.
+```{r filePathSeahorse}
+filePathSeahorse <- file.path(working_directory, paste("data/raw_data/20191219_SciRep_PBMCs_donor_A.xlsx"))
+injscheme <- "HAP"
+print(filePathSeahorse)
+```
+
+Read all the nessecary Seahorse information from the Excel file, 
+
+including data from the 'Assay Configuration' and 'Raw' sheet.
+
+A tibble with these data will be returned.
+
+```{r read_plate_data}
+plate_df <- read_plate_data(filePathSeahorse, injscheme)
+print(plate_df)
+```
+
+Next run the preprocessing on the plate_df file. 
+
+The preprocess_plate_data function preprocesses the data by:
+   * changing columns names
+   * adding new time columns
+   * adding injection info columns
+   * add plate_id column
+   * calculating background data
+   * calculating raw pH emission data
+   
+A tibble is returned. This tibble 7 columns:
+# plate_id (Barcode from the 'Assay Configuration' sheet from the Seahorse Excel file)
+# filePathSeahorse (path to Excel file)
+# date - (derived from Assay Configuration Sheet of the Seahorse Excel file.
+# assay_info - (tibble) with information from the 'Assay Configuration' sheet from the Seahorse Excel file.
+# raw_info - (tibble) with information from the 'Raw' sheet from the Seahorse Excel file.
+# rate_data - With information from the 'Rate' sheet from the Seahorse Excel file.
+
+```{r preprocess_plate_data}
+XFe96data_tibble <- preprocess_plate_data_2(plate_df)
+print(XFe96data_tibble)
 ```
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
@@ -50,7 +109,7 @@ You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-da
 You can also embed plots, for example:
 
 ```{r pressure, echo = FALSE}
-plot(pressure)
+# plot(pressure)
 ```
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
