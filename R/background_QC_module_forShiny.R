@@ -1,11 +1,16 @@
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir =   here::here())
-
+library(knitr)
 #initialize
 library(tidyverse)
 library(bayestestR)
 library(ggiraph)
 library(dplyr)
+
+# library(skimr)
+
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir =   here::here())
+
 
 #' Title: Get the quality information of the background wells, which gives us information about techniqual variation of our analysis.
 #'
@@ -30,6 +35,8 @@ library(dplyr)
 #' 1 V0174416419V      7
 #' Note: Tibble is of type list
 #'
+#' @export
+#'
 #' @return qc_color_list : a list which includes: 
 #' wells #["A12" "H12" "H01" "A01"]
 #' score [6  7 16 11], 
@@ -37,9 +44,8 @@ library(dplyr)
 #' plate_id [ "V0174416419V"] 
 #' and plate_score [7]
 #' 
-#' @export
+#' 
 #'
-#' @examples get_bkg_quality_colors(well_scores_tibble_list, plate_scores_tibble_list)
 #' 
 
 get_bkg_quality_colors <- function(well_scores_tibble_list, plate_scores_tibble_list){
@@ -129,27 +135,17 @@ get_bkg_quality_colors <- function(well_scores_tibble_list, plate_scores_tibble_
 #' @param total_df The preprocessed Raw data sheet of the Seahorse Excel file (converted from .asyr)
 #' @param var The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"
 #' @param targetEMS The target Emission (12500 Au environmental fluorescence emission)
-#'
+#' @export
 #' @return AUC_bkgd background parameters for area under the curve (in list)
-#' 
-#' # A tibble: 48 × 5 (note: Tibble is of type list)
+#' #' # A tibble: 48 × 5 (note: Tibble is of type list)
 #' well  measurement      auc    auc2 dev_fromTarget
 #' <chr>       <dbl>    <dbl>   <dbl>          <dbl>
 #'   1 A01             1 0.00600  -33026.         -77.9 
 #'   
-#' @export
-#'
-#' @examples get_BKGD_auc(total_df, "O2_em_corr", 12500)
-#' 
-#' The total_df looks something like this.
-#' # A tibble: 13,824 × 20
-#' well  measurement  tick timescale minutes group  interval injection O2_em_corr pH_em_corr O2_mmHg    pH pH_em_corr_corr O2_em_corr_bkg pH_em_corr_bkg O2_mmHg_bkg
-#' <chr>       <dbl> <dbl>     <dbl>   <dbl> <chr>     <dbl> <chr>          <dbl>      <dbl>   <dbl> <dbl>           <dbl>          <dbl>          <dbl>       <dbl>
-#' 1 A01             1     0         0       0 Backg…        1 Baseline      12422.     29574.    150.  7.38          29787.         12274.         29377.        152.
-#' 2 A02             1     0         0       0 50.000        1 Baseline      12323.     28932.    152.  7.34          29224.         12274.         29377.        152.
-#' 
+
 
 get_BKGD_auc <- function(total_df, var, targetEMS){
+
   background_drift <- function(x,y){
     y <- y/min(y)-1
     auc_func <- area_under_curve(x, y, method = "trapezoid")
@@ -210,7 +206,7 @@ get_BKGD_auc <- function(total_df, var, targetEMS){
 #'2 Minimum               0             1 -610.  -367.  243.
 #'3 Range(F-L)            0             1  459.   700.  241.
 #'
-#' @param var Name of the variable ("Maximum", "Minimum", "Range(F-L)", "First", "Last", "Range(M-M)")
+#' @param var Name of the variable
 #' [1] "Maximum"
 #' [1] "Minimum"
 #' [1] "Range(F-L)"
@@ -239,9 +235,11 @@ get_BKGD_auc <- function(total_df, var, targetEMS){
 #' [1] "Minimum"
 #' [1] "Range(F-L)"
 #'
+#' @export
+#'
 #' @return scores per plate
 #' example : 1 or 2, or 3 etc. (double)
-#' @export
+#' 
 #'
 #' @examples get_score(well_stats_scirep %>% slice(w), qc_well, "Maximum")
 get_score <- function(df, qc, var){
@@ -274,7 +272,7 @@ get_score <- function(df, qc, var){
 #' 1 V0174416419V  H12   95.7   -274. -274. -95.7         178.         178.
 #' 
 #' @param qc_well # the stats for the complete PBMC dataset - well stats
-#'
+#' @export
 #' @return df with scores 
 #'
 #'# A tibble: 4 × 15
@@ -283,7 +281,6 @@ get_score <- function(df, qc, var){
 #' <chr>        <chr>   <dbl>   <dbl>  <dbl> <dbl>        <dbl>        <dbl>     <dbl>     <dbl>         <dbl>       <dbl>      <dbl>         <dbl>       <dbl>
 #'  1 V0174416419V A01      76.3   -77.9  -77.9  66.3         154.         144.         2         2             1           2          2             2          11
 #'
-#' @export
 #'
 #' @examples get_well_scores(well_stats_scirep, qc_well)
 get_well_scores <- function(df, qc_well){
@@ -327,21 +324,30 @@ get_well_scores <- function(df, qc_well){
 #' 1 Maximum               0             1   20.4  177.  156.
 #' 2 Minimum               0             1 -610.  -367.  243.
 #' 3 Range(F-L)            0             1  459.   700.  241.
-#' 
+#' @export
 #' @return df with scores (note : Tibble is of type list)
 
 #' @examples get_plate_scores(df, qc_plate)
 #'
 #' 
-#' Returned dataframe
-#' Groups:   plate_id [1]
-#' plate_id     well  Maximum Minimum  First  Last     Range(M-M) Range(F-L) max_score min_score rangeFL_score first_score last_score rangeMM_score total_score
-#' <chr>        <chr>   <dbl>   <dbl>  <dbl> <dbl>        <dbl>        <dbl>     <dbl>     <dbl>         <dbl>       <dbl>      <dbl>         <dbl>       <dbl>
-#' 1 V0174416419V A01      76.3   -77.9  -77.9  66.3         154.         144.         2         2             1           2          2             2          11
-#' 2 V0174416419V A12     -90.4  -366.  -366.  -90.4         276.         276.         1         1             1           1          1             1           6
-#' 3 V0174416419V H01     495.   -186.  -186.  495.          680.         680.         3         2             3           2          3             3          16
-#' 4 V0174416419V H12     -95.7  -274.  -274.  -95.7         178.         178.         1         1             1           1          1             2           7
-#' 
+#' Returned dataframe contains the following columns: 
+#' #' Groups:   plate_id [1]
+#' plate_id (<chr>) : (example : V0174416419V)
+#' well (<chr>) : (example : A01)
+#' Maxiumum (<dbl>) : (example : 76.3)
+#' Minimum (<dbl>) : (example : -77.9)
+#' First (<dbl>) : (example: -77.9)
+#' Last (<dbl>) : (example: 66.3)
+#' Range(M-M) (<dbl>) (example: 154.)
+#' Range(F-L) (<dbl>) (example: 144.)
+#' max_score (<dbl>) (example: 2)
+#' min_score (<dbl>) (example: 2)
+#' rangeFL_score (<dbl>) (example: 1)
+#' first_score (<dbl>) (example: 2)
+#' last_score (<dbl>) (example: 2)
+#' rangeMM_score (<dbl>) (example: 2)
+#' total_score (<dbl>) (example: 11)
+
 get_plate_scores <- function(df, qc_plate){
   df$max_score <- get_score(df, qc_plate, "Maximum")
   df$min_score <- get_score(df, qc_plate, "Minimum")
@@ -350,16 +356,16 @@ get_plate_scores <- function(df, qc_plate){
   return(df)
 }
 
-#' Title: Get all background quality scores in a list (well_scores, plate_scores, plots and colors).
+#' Get all background quality scores in a list (well_scores, plate_scores, plots and colors).
 #'
 #' @param XFe96data_tibble A list with the new dataframe and the assay_info.
 #' 
 #' @param working_directory The project directory (which contains the .Rproj file)
 #'
-#' @return background_qc : Get all background quality scores in a list (well_scores, plate_scores, plots and colors).
-#' @export
 #'
-#' @examples background_QC_1(XFe96data_tibble, working_directory)
+#' @export
+#' 
+#' @return background_qc : Get all background quality scores in a list (well_scores, plate_scores, plots and colors).
 #' 
 #' example: print(background_qc) gives:
 #' $background_quality_list$well_scores
@@ -379,9 +385,14 @@ get_plate_scores <- function(df, qc_plate){
 #' 
 
 background_QC_1 <- function(XFe96data_tibble, working_directory){
+  # to prevent no visible binding for global variable '<variable>'. notes, when using command devtools::check().
+  # Variable(s) are now bound to object(s) and so the R CMD check has nothing to complain about. 
+  group_by <- plate_id <- summarize <- dev_fromTarget <- Maximum <- Minimum <- well <- first <- last <- Last <- First <- ungroup <- select <- measurement <- summarise <- quantile <- unnest_wider <- left_join <- mutate <- X75 <- X25 <- ggplot <- aes <- geom_ribbon <- X50 <- whisker_up <- whisker_down <- geom_line <- geom_hline <- theme_classic <- labs <- scale_x_continuous <- tibble <- raw_data <- filePathSeahorse <- slice <- unnest <- geom_line_interactive <- group <- O2_em_corr <- scale_color_manual_interactive <- fileName <- date_run <- map <- bkgd_QC <- iqr <- NULL
+  
   # adjusted skim function
   # skimr is designed to provide summary statistics about variables in data frames, tibbles, data tables and vectors. 
   # It is opinionated in its defaults, but easy to modify.
+  
   my_skim <- skimr::skim_with(numeric = skimr::sfl(iqr = IQR, p0 = NULL,p50 = NULL,p100 = NULL,
                                                    mean = NULL,sd = NULL,hist = NULL))
   

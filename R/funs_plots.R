@@ -15,7 +15,7 @@ library(ggplot2)
 #' @param flnme Name of the imported Seahorse file.
 #'
 #' @return A variable gg_plot which contains information about how to plot/visualise the fluorescent emission (Au) of each background well against time.
-#' @export # This tells Roxygen2 to add this function to the NAMESPACE file, so that it will be accessible to users.
+#' @export
 #'
 #' @examples  gg_plot <- plot_raw_BKGD("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 
@@ -72,7 +72,7 @@ plot_raw_BKGD <- function(var, total_df, O2_targetEmission, pH_targetEmission, f
   
 }
 
-#' Title: raw_BKGD_means. Visualizes the mean fluorescence emission (Au) of each background well against time. 
+#' Visualizes the mean fluorescence emission (Au) of each background well against time. 
 #'
 #' @param var The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"
 #' @param total_df The preprocessed Raw data sheet of the Seahorse Excel file (converted from .asyr)
@@ -86,7 +86,7 @@ plot_raw_BKGD <- function(var, total_df, O2_targetEmission, pH_targetEmission, f
 #' @examples gg_plot <- raw_BKGD_means("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 plot_raw_BKGD_means <- function(var, total_df, O2_targetEmission, pH_targetEmission, flnme){
 
-#' Title: Edit the theme.
+#' Edit the theme.
 #' @examples theme_maxTick()
   theme_maxTick <- function(){
     theme_classic(base_size = 15) %+replace% 
@@ -146,7 +146,7 @@ plot_raw_BKGD_means <- function(var, total_df, O2_targetEmission, pH_targetEmiss
   return(gg_plot)
 }
 
-#' Title : plot_BKGD_auc_facet. Visualizes the fluorescence emission (Au) of each background well and is based on the area under the curve (auc).
+#' Visualizes the fluorescence emission (Au) of each background well and is based on the area under the curve (auc).
 #' 
 #' @param var The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"
 #' @param auc_var The selected aus var (auc or auc2)
@@ -154,9 +154,15 @@ plot_raw_BKGD_means <- function(var, total_df, O2_targetEmission, pH_targetEmiss
 #' @param O2_targetEmission Target emission of the O2 (Usually 12500 Fluorescence Emission (Au))
 #' @param pH_targetEmission Target emission of the pH (Usually 30000 Fluorescence Emission (Au))
 #' @param file_name Name of the imported Seahorse file
-#'
-#' @return a variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) of each background well, based on the area under the curve (auc).
+#' @param total_df requires description
+#' @param targetEMS requires description
+#' @param x requires description
+#' @param y requires description
+#' @param baseline requires description
+#' @param AUC_bkgd requires description
+#' @param flnme requires description
 #' @export 
+#' @return a variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) of each background well, based on the area under the curve (auc).
 #'
 #' @examples plot_BKGD_auc_facet("O2_em_corr", "auc", df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEmission, file_name){
@@ -187,14 +193,14 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
   
 #' Title
 #'
-#' @param total_df 
-#' @param var 
-#' @param targetEMS 
+#' @param total_df requires description
+#' @param var requires description
+#' @param targetEMS requires description
 #'
-#' @return
+#' @return requires description
 #' @export
 #'
-#' @examples
+#' @examples requires example
   get_BKGD_auc <- function(total_df, var, targetEMS){
     
 #' Title

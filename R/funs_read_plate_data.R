@@ -16,7 +16,7 @@ library(logger)
 #' @return plate_df tibble (Note: tibble has type list) with all the information important data derived from the Seahorse Excel file. 
 #' @export
 #'
-#' @examples 
+#' @examples requires example
 #' read_plate_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "HAP")
 #' read_plate_data("data/PBMC/sci_rep/20200110 SciRep PBMCs donor B.xlsx", "HAP)
 #' read_plate_data("data/PBMC/sci_rep/20200110 SciRep PBMCs donor C.xlsx", "HAP)
@@ -99,14 +99,14 @@ read_plate_data <- function(filePathSeahorse, injscheme) {
 }
 
 ## get_assay_info() ----------------------------------------------------
-#' Title : Get useful information from the Assay Configuration sheet from the Seahorse Excel file.
+#' Get useful information from the Assay Configuration sheet from the Seahorse Excel file.
 #'
 #' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
 #'
 #' @return assayConfigurationTibble : A tibble with all the nessecary information derived from the Seahorse Assay Configuration sheet.
 #' @export
 #'
-#' @examples
+#' @examples get_assay_info(filePathSeahorse)
 get_assay_info <- function(filePathSeahorse) {
 
   # read Assay Configuration sheet from the Seahorse Exel file. 
@@ -167,7 +167,7 @@ get_assay_info <- function(filePathSeahorse) {
   # other constants
   O2_0_mmHg <- 151.6900241
   O2_0_mM <- 0.214
-  
+
   assayConfigurationTibble <- tibble(
     F0,
     V_C,
@@ -203,6 +203,7 @@ get_assay_info <- function(filePathSeahorse) {
 #'
 #' @return A new dataframe called measurement_info The df has three columns: 
 #'   $measurement, $interval, $injection
+#' @export
 #' @examples
 #' get_injection_info_H(filePathSeahorse)
 get_injection_info_H <- function (filePathSeahorse){
@@ -285,7 +286,9 @@ get_injection_info_M <- function (filePathSeahorse){
 #' @return dataframe with plate layout data.
 #' @export
 #'
-#' @examples get_platelayout_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "Assay Configuration", "B96:N104", "bufferfactor")
+#' @examples 
+#' get_platelayout_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "Assay Configuration", "B96:N104", "bufferfactor")
+#' 
 get_platelayout_data <- function(filePathSeahorse, my_sheet,my_range, my_param ){
   
   df <- read_excel(filePathSeahorse, sheet = my_sheet, range = my_range)

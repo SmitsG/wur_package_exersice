@@ -4,23 +4,23 @@ library(logger)
 # Read an Excel file with certain imput parameters
 #' Title
 #'
-#' @param path 
-#' @param sheet 
-#' @param range 
-#' @param col_names 
-#' @param col_types 
-#' @param na 
-#' @param trim_ws 
-#' @param skip 
-#' @param n_max 
-#' @param guess_max 
-#' @param progress 
-#' @param .name_repair 
+#' @param path path to excel file
+#' @param sheet sheet of specific excel file
+#' @param range range of cellls in excel file
+#' @param col_names column names of excel file
+#' @param col_types column type of excel file
+#' @param na requires description
+#' @param trim_ws requires description
+#' @param skip requires description
+#' @param n_max requires description 
+#' @param guess_max requires description
+#' @param progress requires description
+#' @param .name_repair requires description
 #'
-#' @return
+#' @return requires description
 #' @export
 #'
-#' @examples
+#' @examples requires example
 read_excel_rwave <- function( path,
                               sheet = NULL,
                               range = NULL,

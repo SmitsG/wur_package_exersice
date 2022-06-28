@@ -5,6 +5,7 @@
 
 library(tidyverse)
 library(readxl)
+library(dplyr)
 
 # MAIN FUNCTION preprocess_plate_data ------------------------------------
 
@@ -19,9 +20,21 @@ library(readxl)
 #'   * calculating background data
 #'   * calculating raw pH emission data
 #'   
-#' @param plate_df A list of all data read from the original excel wace exported file
-#' @return XFe96data_tibble : a list with the new dataframe and the assay_info. A new dataframe called XFe96data_tibble is returned. 
-#' The preprocessed dataframe has the following columns:
+#' @param plate_df A tibble of all data read from the original excel wace exported file
+#' @return XFe96data_tibble : a tibble with the new dataframe and the assay_info. A new dataframe called XFe96data_tibble is returned.
+#' 
+#' Example XFe96data_tibble: 
+#' #'   # A tibble: 1 × 7
+# Groups:   plate_id [1]
+# plate_id     filePathSeahorse                                                                     date    assay_info          injection_info       raw_data   rate_data
+# <chr>        <chr>                                                                                <dttm>   <list>                <list>              <list>     <list>   
+#  1 V0174416419V /home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice/dat… NA     <tibble [1 × 21]>    <tibble [12 × 3]>  <tibble>   <tibble> 
+#
+# XFe96data_tibble - assay info
+#' assay_info contains all important assay information 
+#' 
+#' XFe96data_tibble - raw_data 
+#' raw_data contains a list with all important raw data:
 #'   * plate_id
 #'   * well
 #'   * measurement
@@ -37,14 +50,6 @@ library(readxl)
 #'   * pH
 #'   * pH_em_corr_corr
 #'   * backgrounds for O2_em_corr, pH_em_corr, O2_mmHg, pH, pH_em_corr_corr
-#' 
-#' The assay_info has the following information:
-#'   # A tibble: 1 × 21
-#' F0   V_C Tau_AC Tau_W Tau_C Tau_P    KSV    gain1 gain2  pH_0 pH_targetEmission O2_targetEmission plate_id     cartridge_barco… date_run assay_name           
-#' <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl>  <dbl>    <dbl> <dbl> <dbl>             <dbl>             <dbl> <chr>        <chr>            <dttm>   <chr>                
-#'   1 54025.  9.15    746   296   246  60.9 0.0219 0.000405  1.01   7.4             30000             12500 V0174416419V W0013917519B**+… NA       20191219 SciRep PBMC…
-# … with 5 more variables: instrument_serial <chr>, O2_0_mmHg <dbl>, O2_0_mM <dbl>, norm_available <lgl>, excel_OCR_background_corrected <lgl>
-#'   
 #' @examples
 #' preprocess_plate_data(plate_df)
 #' 
@@ -132,6 +137,7 @@ preprocess_plate_data_2 <- function(plate_df) {
   assay_info <- XFe96data_tibble[[4]]
   assay_info <<- assay_info[[1]]
   
+  print(XFe96data_tibble)
   return(XFe96data_tibble)
 }
 
@@ -181,13 +187,12 @@ rename_columns <- function(plate_df) {
 #' @param plate_df A dataframe generated in adjust_columns
 #' @return A new dataframe with new columns added  to \code{plate_df}. New columns 
 #'  are: "totalMinutes", "minutes", "timescale"
-#' @examples
-#' convert_timestamp(XFe96data)
 convert_timestamp <- function(plate_df) {
-  
+  arrange <- tick <- NULL
+
   # first make sure that the data is sorted correctly
   plate_df <- arrange(plate_df, tick, well)
-  
+
   # add three columns to df (totalMinutes, minutes and time) by converting the timestamp into seconds
   plate_df$time <- as.character((plate_df$time))
   times <- strsplit(plate_df$time, ":")
