@@ -34,6 +34,6 @@ Maintainer: Lionel Henry <lionel@rstudio.com>
 Repository: CRAN
 Date/Publication: 2022-03-30 07:30:09 UTC
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 14:53:48 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: b323532bfd2fe948d0eb19afa866cb12

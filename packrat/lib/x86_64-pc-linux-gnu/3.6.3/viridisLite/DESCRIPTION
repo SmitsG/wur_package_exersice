@@ -35,6 +35,6 @@ Author: Simon Garnier [aut, cre], Noam Ross [ctb, cph], Bob Rudis [ctb,
 Repository: CRAN
 Date/Publication: 2021-04-13 15:00:02 UTC
 Built: R 3.6.3; ; 2022-05-12 15:02:39 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: aeccc8c24d26192f4043be0c69151b96

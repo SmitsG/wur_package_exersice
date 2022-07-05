@@ -35,6 +35,6 @@ Author: Gábor Csárdi [aut, cre], Kirill Müller [aut], Jim Hester [aut],
 Repository: CRAN
 Date/Publication: 2022-03-06 13:20:02 UTC
 Built: R 3.6.3; ; 2022-05-12 14:57:24 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 6ebcf66d42e2bd14b17eecd30b80881e

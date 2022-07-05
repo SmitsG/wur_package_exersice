@@ -87,6 +87,6 @@ Maintainer: Matt Dowle <mattjdowle@gmail.com>
 Repository: CRAN
 Date/Publication: 2021-09-27 16:30:02 UTC
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 15:03:13 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 6e09e74cc9e29021c9e95fe7ed38dc68

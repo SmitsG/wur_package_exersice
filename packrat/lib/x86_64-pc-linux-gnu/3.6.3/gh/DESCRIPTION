@@ -25,6 +25,6 @@ Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Repository: CRAN
 Date/Publication: 2021-04-30 10:40:14 UTC
 Built: R 3.6.3; ; 2022-05-12 15:07:32 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: b2943afd4ad40fe9c08579bb031dfbf2

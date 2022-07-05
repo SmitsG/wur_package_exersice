@@ -21,6 +21,6 @@ Packaged: 2019-05-15 20:28:47 UTC; gaborcsardi
 Repository: CRAN
 Date/Publication: 2019-05-16 21:30:03 UTC
 Built: R 3.6.3; ; 2022-05-12 15:06:19 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 209280eb751acf5899f7c69366e14bd3

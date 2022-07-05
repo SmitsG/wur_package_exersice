@@ -30,6 +30,6 @@ Maintainer: Gergely Daróczi <daroczig@rapporter.net>
 Repository: CRAN
 Date/Publication: 2021-10-19 05:30:08 UTC
 Built: R 3.6.3; ; 2022-05-12 15:04:35 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 61f8456123c37cffcfd3bb722eda1d1e

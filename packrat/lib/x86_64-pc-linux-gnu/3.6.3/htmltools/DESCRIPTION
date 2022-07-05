@@ -37,6 +37,6 @@ Maintainer: Carson Sievert <carson@rstudio.com>
 Repository: CRAN
 Date/Publication: 2021-08-25 13:50:02 UTC
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 15:04:42 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: b28ba309140d26d4c282c4b5f91240aa

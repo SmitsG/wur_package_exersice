@@ -15,6 +15,6 @@ Packaged: 2020-10-18 12:56:46 UTC; nuno
 Repository: CRAN
 Date/Publication: 2020-10-20 07:00:09 UTC
 Built: R 3.6.3; ; 2022-05-12 15:02:37 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 7474c78957f4e01d1dd4c04217eab244

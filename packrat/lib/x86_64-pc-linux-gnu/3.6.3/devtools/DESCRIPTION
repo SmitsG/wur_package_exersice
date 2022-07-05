@@ -38,6 +38,6 @@ Maintainer: Jennifer Bryan <jenny@rstudio.com>
 Repository: CRAN
 Date/Publication: 2021-11-30 09:00:02 UTC
 Built: R 3.6.3; ; 2022-05-12 15:09:14 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 3292e563c8a11d6c361336ef263fb1f0

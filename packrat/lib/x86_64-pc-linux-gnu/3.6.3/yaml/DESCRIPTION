@@ -20,6 +20,6 @@ Packaged: 2022-02-19 02:41:00 UTC; garbetsp
 Repository: CRAN
 Date/Publication: 2022-02-21 09:20:02 UTC
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 14:53:40 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 006ce2bd0f10a964ab59745f81434037

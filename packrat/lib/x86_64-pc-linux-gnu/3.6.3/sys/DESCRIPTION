@@ -28,6 +28,6 @@ Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
 Repository: CRAN
 Date/Publication: 2020-07-23 04:30:02 UTC
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 15:02:20 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 7fb0c9e1209a804b329a7df3cd422008

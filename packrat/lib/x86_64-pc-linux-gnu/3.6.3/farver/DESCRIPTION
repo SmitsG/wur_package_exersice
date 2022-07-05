@@ -34,6 +34,6 @@ Author: Thomas Lin Pedersen [cre, aut]
 Repository: CRAN
 Date/Publication: 2021-02-28 19:30:02 UTC
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 15:02:29 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: a001f1816f74d0e76e82171eef764a9d

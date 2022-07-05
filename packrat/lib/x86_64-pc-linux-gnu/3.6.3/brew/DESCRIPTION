@@ -18,6 +18,6 @@ NeedsCompilation: no
 Packaged: 2022-02-04 10:07:41 UTC; greg
 Date/Publication: 2022-02-04 11:50:02 UTC
 Built: R 3.6.3; ; 2022-05-12 14:53:50 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: a132223a72b66cd5de77450d48963f57

@@ -64,6 +64,6 @@ Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
 Repository: CRAN
 Date/Publication: 2022-02-21 09:50:02 UTC
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 15:02:11 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: fa1063854efff0a00b5fad89e2f20f47

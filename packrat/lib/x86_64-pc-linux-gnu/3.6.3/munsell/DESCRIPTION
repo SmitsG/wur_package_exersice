@@ -21,6 +21,6 @@ Packaged: 2018-06-11 23:15:15 UTC; wickhamc
 Repository: CRAN
 Date/Publication: 2018-06-12 04:29:06 UTC
 Built: R 3.6.3; ; 2022-05-12 15:04:37 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 38d0efee9bb99bef143bde41c4ce715c

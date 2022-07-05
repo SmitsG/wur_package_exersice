@@ -109,6 +109,6 @@ Author: JJ Allaire [aut], Yihui Xie [aut, cre]
 Repository: CRAN
 Date/Publication: 2022-04-25 19:20:02 UTC
 Built: R 3.6.3; ; 2022-05-12 15:07:36 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: cc514dae1dc452ec2ffd6d170a462b27

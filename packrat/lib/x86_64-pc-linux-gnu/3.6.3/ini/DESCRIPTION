@@ -20,6 +20,6 @@ Packaged: 2018-05-19 23:19:45 UTC; CLIENTE
 Repository: CRAN
 Date/Publication: 2018-05-20 03:26:39 UTC
 Built: R 3.6.3; ; 2022-05-12 15:02:27 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: 9d6de5178c1cedabfb24e7d2acc9a092

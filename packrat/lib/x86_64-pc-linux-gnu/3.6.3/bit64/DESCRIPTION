@@ -31,6 +31,6 @@ Date/Publication: 2020-08-30 07:20:02 UTC
 NeedsCompilation: yes
 Packaged: 2020-08-29 10:56:45 UTC; jo
 Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 15:04:38 UTC; unix
-InstallAgent: packrat 0.7.0
+InstallAgent: packrat 0.8.0
 InstallSource: CRAN
 Hash: f82a5f545b6ed024639c3b9358c5e19f
