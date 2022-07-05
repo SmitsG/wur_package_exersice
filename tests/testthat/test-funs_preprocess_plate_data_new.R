@@ -4,9 +4,6 @@
 # These functions are called by testthat from the test-funs_read_plate_data.R script.
 # To test the output of preprocess_plate_data_new, the output of funs_read_plate_data is used (plate_df).
 
-library(readxl)
-library(dplyr)
-library(tidyr)
 # source(paste(working_directory,"/tests/testthat/test-funs_preprocess_plate_data_new.R", sep=""))
 # source("/home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice/tests/testthat/test-funs_read_plate_data.R")
 source("/home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice/R/funs_preprocess_plate_data_new.R")

@@ -1,0 +1,14 @@
+Many packages contain files that hold test data. Where should these be stored? The best location is somewhere below tests/testthat/, often in a subdirectory, to keep things neat. Below is an example, where useful_thing1.rds and useful_thing2.rds hold objects used in the test files.
+
+.
+├── ...
+└── tests
+    ├── testthat
+    │   ├── fixtures
+    │   │   ├── make-useful-things.R
+    │   │   ├── useful_thing1.rds
+    │   │   └── useful_thing2.rds
+    │   ├── helper.R
+    │   ├── setup.R
+    │   └── (all the test files)
+    └── testthat.R

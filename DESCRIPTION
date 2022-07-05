@@ -1,14 +1,22 @@
 Package: WurPackageExersice
 Type: Package
-Title: Testing out packages
+Title: A good title should be displayed here (todo)
 Version: 0.1.0
-Author: Gerwin Smits
+Authors@R: c(
+    person("Vincent", "de Boer", email = "vincent.deboer@wur.nl", role = "cre", "aut"),
+    person("Gerwin", "Smits", email = "gerwin.smits@wur.nl", role = "aut"))
 Maintainer: The package maintainer <gerwin.smits@wur.nl>
-Description: This is an application to visualise derived from Rwave.
+Description: A good title should be displayed here (todo)
+             This is an application to visualise Seahorse data in aan  
+             You import your Seahorse data. The script will preprocess usefull Seahorse information and
+             perform quality control for background wells. Additional calculations will be performed. (todo)
+URL: https://devtools.r-lib.org/, https://github.com/r-lib/devtools (todo, this is an example)
+BugReports: https://github.com/r-lib/devtools/issues (todo, this is an example)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Suggests: 
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 RoxygenNote: 7.2.0
@@ -36,4 +44,6 @@ Imports:
     data.table (>= 1.9.8),
     lubridate,
     skimr,
-    tibble
+    tibble,
+    tidyr
+VignetteBuilder: knitr

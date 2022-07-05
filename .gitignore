@@ -41,3 +41,4 @@ packrat/lib*/
 WurPackageExersice.Rcheck/
 WurPackageExersice*.tar.gz
 WurPackageExersice*.tgz
+inst/doc

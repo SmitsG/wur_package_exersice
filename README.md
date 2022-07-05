@@ -19,6 +19,8 @@ You can install the development version of WurPackageExersice from
 devtools::install_github("SmitsG/wur_package_exersice")
 ```
 
+# devtools::document() Use roxygen to document a package.
+
 Set the working directory.
 
 This is the directory where the .Rproj file is located.
@@ -42,6 +44,7 @@ Note: This is also done at our App.R.
 # Use the paste function to concatenate paths. 
 source(paste(working_directory,"/R/funs_plots.R", sep=""))
 source(paste(working_directory,"/R/funs_read_plate_data.R", sep=""))
+source(paste(working_directory,"/R/funs_preprocess_plate_data_new.R", sep=""))
 #> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 #> ✔ tibble  3.1.7     ✔ dplyr   1.0.9
 #> ✔ tidyr   1.2.0     ✔ stringr 1.4.0
@@ -50,7 +53,6 @@ source(paste(working_directory,"/R/funs_read_plate_data.R", sep=""))
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
-source(paste(working_directory,"/R/funs_preprocess_plate_data_new.R", sep=""))
 source(paste(working_directory,"/R/background_QC_module_forShiny.R", sep=""))
 ```
 
@@ -226,13 +228,6 @@ information from the ‘Rate’ sheet from the Seahorse Excel file.
 XFe96data_tibble <- preprocess_plate_data_2(plate_df)
 #> `summarise()` has grouped output by 'measurement'. You can override using the
 #> `.groups` argument.
-#> # A tibble: 1 × 7
-#> # Groups:   plate_id [1]
-#>   plate_id     filePathSeahorse    date   assay_info        injection_info   
-#>   <chr>        <chr>               <dttm> <list>            <list>           
-#> 1 V0174416419V /home/xiang/Docume… NA     <tibble [1 × 21]> <tibble [12 × 3]>
-#> # … with 2 more variables: raw_data <list>, rate_data <list>
-print(XFe96data_tibble)
 #> # A tibble: 1 × 7
 #> # Groups:   plate_id [1]
 #>   plate_id     filePathSeahorse    date   assay_info        injection_info   

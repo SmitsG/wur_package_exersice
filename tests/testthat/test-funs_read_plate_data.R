@@ -1,6 +1,3 @@
-library(testthat)
-library(readxl)
-library(dplyr)
 
 # tests for funs_read_plate_data.R
 # funs_read_plate_data.R returns a tibble called plate_df
@@ -12,8 +9,12 @@ library(dplyr)
 # working_directory <- getwd()
 
 working_directory <- "/home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice"
-
+testthat::test_path(working_directory)
 # source test-funs_preprocess_plate_data_new.R
+
+
+# TODO: One other function that should almost never appear below tests/testhat/ is source(). 
+
 source(paste(working_directory,"/tests/testthat/test-funs_preprocess_plate_data_new.R", sep=""))
 
 # check if column names exists in df.
@@ -132,7 +133,8 @@ plate_df_columns_list <<- list("XFe96data",
 # Check if a data tibble is returned, and check data tibble. (Note: tibble has type list)
 test_that("a data tibble is returned (list format)", {
   # check if output is tibble.
-  plate_df <- expect_type(read_plate_data("/home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice/data/raw_data/20200110_SciRep_PBMCs_donor_C.xlsx", "HAP"), "list")
+  # fpath <<- system.file("/data/raw_data", "20200110_SciRep_PBMCs_donor_C.xlsx", package="WurPackageExersice")
+  plate_df <- expect_type(read_plate_data(file.path(working_directory, paste("data/raw_data/20200110_SciRep_PBMCs_donor_C.xlsx")), "HAP"), "list")
   # check if all columns from list exist.
   check_column_names(plate_df, plate_df_columns_list)
   # check XFe96data columns on type.
