@@ -17,6 +17,3 @@ A new dataframe with adjusted and selected column names. The selected columns wi
 This function is called in the preprocessing function and renames the columns of the dataframe that was
   read in by read_excel from the WAVE excel output file, excel sheet "Raw".
 }
-\examples{
-rename_columns(XFe96data)
-}

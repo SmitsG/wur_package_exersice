@@ -7,7 +7,7 @@
 get_injection_info_M(filePathSeahorse)
 }
 \arguments{
-\item{filePathSeahorse}{The name of the file that is being processed}
+\item{filePathSeahorse}{Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.}
 }
 \value{
 A new dataframe called measurement_info The df has three columns: 
@@ -19,7 +19,4 @@ IMPORTANT: the output of the injection information is different on different XFe
   "operation log file". The other (get_injection_info_M) function uses a manual assignment of the injection names.
   In both cases, the number of measurements per injection ARE read by the function.
   The default names for the get_injection_info_M are c("basal", "OM", "FCCP", "AM/rot").
-}
-\examples{
-get_injection_info_M(filePathSeahorse)
 }

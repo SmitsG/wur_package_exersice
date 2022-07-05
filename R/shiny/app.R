@@ -20,6 +20,8 @@ working_directory <- setwd('../..')
 # This path contains all directories with the nessecary functions inside. 
 working_directory <- getwd()
 
+# A function to get the absolute file path with the provided package. (not used yet)
+fpath <- system.file("/data/raw_data", "20191219_SciRep_PBMCs_donor_A.xlsx", package="WurPackageExersice")
 
 # Source the libraries.
 # Use the paste function to concatenate paths. 

@@ -2,16 +2,16 @@
 % Please edit documentation in R/funs_read_plate_data.R
 \name{get_assay_info}
 \alias{get_assay_info}
-\title{Title : Get useful information from the Assay Configuration sheet from the Seahorse Excel file.}
+\title{Get useful information from the Assay Configuration sheet from the Seahorse Excel file.}
 \usage{
 get_assay_info(filePathSeahorse)
 }
 \arguments{
-\item{filePathSeahorse}{}
+\item{filePathSeahorse}{Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.}
 }
 \value{
 assayConfigurationTibble : A tibble with all the nessecary information derived from the Seahorse Assay Configuration sheet.
 }
 \description{
-Title : Get useful information from the Assay Configuration sheet from the Seahorse Excel file.
+Get useful information from the Assay Configuration sheet from the Seahorse Excel file.
 }

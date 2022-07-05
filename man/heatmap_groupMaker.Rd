@@ -2,18 +2,19 @@
 % Please edit documentation in R/funs_plots.R
 \name{heatmap_groupMaker}
 \alias{heatmap_groupMaker}
-\title{Title}
+\title{Title: Visualises the layout of the Seahorse plate, through different colors.}
 \usage{
-heatmap_groupMaker(wholeWell, flnme)
+heatmap_groupMaker(XFe96data, flnme)
 }
 \arguments{
-\item{wholeWell}{}
+\item{XFe96data}{A Raw data sheet from a Seahorse Excel file (converted from .asyr file) which is put in a variable called XFe96data.}
 
-\item{flnme}{}
+\item{flnme}{Name of the imported Seahorse file.}
 }
 \value{
-
+variable gg_plot which contains information about to plot the plate layout.
 }
 \description{
-Title
+Title: Visualises the layout of the Seahorse plate, through different colors.
 }
+\keyword{internal}

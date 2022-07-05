@@ -2,7 +2,7 @@
 % Please edit documentation in R/funs_plots.R
 \name{plot_group_emissions}
 \alias{plot_group_emissions}
-\title{Title}
+\title{Title: Visualizes the fluorescence emission (Au) of each well for different Seahorse groups.}
 \usage{
 plot_group_emissions(
   var,
@@ -13,19 +13,20 @@ plot_group_emissions(
 )
 }
 \arguments{
-\item{var}{}
+\item{var}{The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"}
 
-\item{total_df}{}
+\item{total_df}{The preprocessed Raw data sheet of the Seahorse Excel file (converted from .asyr)}
 
-\item{O2_targetEmission}{}
+\item{O2_targetEmission}{Target emission of the O2 (Usually 12500 Fluorescence Emission (Au))}
 
-\item{pH_targetEmission}{}
+\item{pH_targetEmission}{Target emission of the pH (Usually 30000 Fluorescence Emission (Au))}
 
-\item{flnme}{}
+\item{flnme}{Name of the imported Seahorse file.}
 }
 \value{
-
+variable gg which contains information about how to plot/visualise fluorescence emission (Au) of each well for different Seahorse groups.
 }
 \description{
-Title
+Title: Visualizes the fluorescence emission (Au) of each well for different Seahorse groups.
 }
+\keyword{internal}

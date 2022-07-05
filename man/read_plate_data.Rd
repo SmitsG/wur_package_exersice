@@ -2,7 +2,7 @@
 % Please edit documentation in R/funs_read_plate_data.R
 \name{read_plate_data}
 \alias{read_plate_data}
-\title{Title : Read Plate data to return all nessecary Seahorse information.}
+\title{Read Plate data to return all nessecary Seahorse information.}
 \usage{
 read_plate_data(filePathSeahorse, injscheme)
 }
@@ -12,11 +12,11 @@ read_plate_data(filePathSeahorse, injscheme)
 \item{injscheme}{Type of injection Scheme}
 }
 \value{
-plate_df with all the information important data derived from the Seahorse Excel file.
+plate_df tibble (Note: tibble has type list) with all the information important data derived from the Seahorse Excel file.
 }
 \description{
-Title : Read Plate data to return all nessecary Seahorse information.
+Read Plate data to return all nessecary Seahorse information.
 }
 \examples{
-read_plate_data()
+read_plate_data("/home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice/data/raw_data/20191219_SciRep_PBMCs_donor_A.xlsx", "HAP")
 }

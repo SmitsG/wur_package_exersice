@@ -2,13 +2,21 @@
 % Please edit documentation in R/funs_plots.R
 \name{make_range_plot}
 \alias{make_range_plot}
-\title{Title}
+\title{Title: Visualises the oxygen concentration (mmHg) of the background wells within a range plot.}
 \usage{
 make_range_plot(var, df, flnme)
 }
-\value{
+\arguments{
+\item{var}{The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"}
 
+\item{df}{The total dataframe with Raw data (derived from XFe96data_tibble$raw_data)}
+
+\item{flnme}{Name of the imported Seahorse file.}
+}
+\value{
+variable gg_plot which contains information about how to plot/visualise the oxygen concentration (mmHg) of the background wells within a range plot.
 }
 \description{
-Title
+Title: Visualises the oxygen concentration (mmHg) of the background wells within a range plot.
 }
+\keyword{internal}

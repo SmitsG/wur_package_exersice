@@ -16,6 +16,3 @@ A new dataframe with new columns added  to \code{plate_df}. New columns
 \description{
 Convert the the time column in the WAVE input dataframe to a time scale in seconds
 }
-\examples{
-convert_timestamp(XFe96data)
-}

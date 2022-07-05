@@ -2,20 +2,49 @@
 % Please edit documentation in R/background_QC_module_forShiny.R
 \name{get_score}
 \alias{get_score}
-\title{Title}
+\title{Calculating the scores per plate}
 \usage{
 get_score(df, qc, var)
 }
 \arguments{
-\item{df}{}
+\item{df}{Stat summaries for NEW PLATES - well}
 
-\item{qc}{}
+\item{qc}{The stats for the complete PBMC dataset - well stats}
 
-\item{var}{}
+\item{var}{Name of the variable
+[1] "Maximum"
+[1] "Minimum"
+[1] "Range(F-L)"
+[1] "First"
+[1] "Last"
+[1] "Range(M-M)"
+[1] "Maximum"
+[1] "Minimum"
+[1] "Range(F-L)"
+[1] "First"
+[1] "Last"
+[1] "Range(M-M)"
+[1] "Maximum"
+[1] "Minimum"
+[1] "Range(F-L)"
+[1] "First"
+[1] "Last"
+[1] "Range(M-M)"
+[1] "Maximum"
+[1] "Minimum"
+[1] "Range(F-L)"
+[1] "First"
+[1] "Last"
+[1] "Range(M-M)"
+[1] "Maximum"
+[1] "Minimum"
+[1] "Range(F-L)"}
 }
 \value{
-
+scores per plate
+example : 1 or 2, or 3 etc. (double)
 }
 \description{
-Title
+Calculating the scores per plate
 }
+\keyword{internal}

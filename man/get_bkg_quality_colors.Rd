@@ -2,16 +2,20 @@
 % Please edit documentation in R/background_QC_module_forShiny.R
 \name{get_bkg_quality_colors}
 \alias{get_bkg_quality_colors}
-\title{Title}
+\title{Get the quality information of the background wells}
 \usage{
 get_bkg_quality_colors(well_scores_tibble_list, plate_scores_tibble_list)
 }
 \arguments{
-\item{plate_scores_tibble_list}{}
+\item{well_scores_tibble_list}{tibble with well scores}
+
+\item{plate_scores_tibble_list}{tibble with plate scores}
 }
 \value{
-
+qc_color_list : a list which includes the different background wells, the quality score, color (green, red or yellow), 
+the plate_id (example "V0174416419V") and the calculated quality score of the plate.
 }
 \description{
-Title
+The quality information gives us information about techniqual variation of our analysis.
 }
+\keyword{internal}

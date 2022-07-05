@@ -2,18 +2,19 @@
 % Please edit documentation in R/background_QC_module_forShiny.R
 \name{background_QC_1}
 \alias{background_QC_1}
-\title{Title}
+\title{Get all background quality scores in a list (well_scores, plate_scores, plots and colors).}
 \usage{
 background_QC_1(XFe96data_tibble, working_directory)
 }
 \arguments{
-\item{XFe96data_tibble}{}
+\item{XFe96data_tibble}{A list with the new dataframe and the assay_info.}
 
-\item{working_directory}{}
+\item{working_directory}{The project directory (which contains the .Rproj file)}
 }
 \value{
-
+background_qc : Get all background quality scores in a list (well_scores, plate_scores, plots and colors).
 }
 \description{
-Title
+Get all background quality scores in a list (well_scores, plate_scores, plots and colors).
 }
+\keyword{Internal}

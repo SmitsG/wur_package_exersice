@@ -2,22 +2,22 @@
 % Please edit documentation in R/funs_read_plate_data.R
 \name{get_platelayout_data}
 \alias{get_platelayout_data}
-\title{Title}
+\title{Title: Get plate layout data.}
 \usage{
 get_platelayout_data(filePathSeahorse, my_sheet, my_range, my_param)
 }
 \arguments{
-\item{filePathSeahorse}{}
+\item{filePathSeahorse}{Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.}
 
-\item{my_sheet}{}
+\item{my_sheet}{Sheet of the Seahorse Excel file}
 
-\item{my_range}{}
+\item{my_range}{Range of the cells in the Seahorse Excel file}
 
-\item{my_param}{}
+\item{my_param}{Summarised name of the parameter which will include the data that is collected}
 }
 \value{
-
+dataframe with plate layout data.
 }
 \description{
-Title
+Title: Get plate layout data.
 }

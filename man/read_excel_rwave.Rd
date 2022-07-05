@@ -20,33 +20,34 @@ read_excel_rwave(
 )
 }
 \arguments{
-\item{path}{}
+\item{path}{path to excel file}
 
-\item{sheet}{}
+\item{sheet}{sheet of specific excel file}
 
-\item{range}{}
+\item{range}{range of cellls in excel file}
 
-\item{col_names}{}
+\item{col_names}{column names of excel file}
 
-\item{col_types}{}
+\item{col_types}{column type of excel file}
 
-\item{na}{}
+\item{na}{requires description}
 
-\item{trim_ws}{}
+\item{trim_ws}{requires description}
 
-\item{skip}{}
+\item{skip}{requires description}
 
-\item{n_max}{}
+\item{n_max}{requires description}
 
-\item{guess_max}{}
+\item{guess_max}{requires description}
 
-\item{progress}{}
+\item{progress}{requires description}
 
-\item{.name_repair}{}
+\item{.name_repair}{requires description}
 }
 \value{
-
+requires description
 }
 \description{
 Title
 }
+\keyword{internal}

@@ -2,20 +2,21 @@
 % Please edit documentation in R/background_QC_module_forShiny.R
 \name{get_BKGD_auc}
 \alias{get_BKGD_auc}
-\title{Title}
+\title{Function used to collect background parameters}
 \usage{
 get_BKGD_auc(total_df, var, targetEMS)
 }
 \arguments{
-\item{total_df}{}
+\item{total_df}{The preprocessed Raw data sheet of the Seahorse Excel file (converted from .asyr)}
 
-\item{var}{}
+\item{var}{The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"}
 
-\item{targetEMS}{}
+\item{targetEMS}{The target Emission (12500 Au environmental fluorescence emission)}
 }
 \value{
-
+AUC_bkgd background parameters for area under the curve (in list)
 }
 \description{
-Title
+Function used to collect background parameters
 }
+\keyword{internal}

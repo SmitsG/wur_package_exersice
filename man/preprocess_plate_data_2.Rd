@@ -7,11 +7,17 @@
 preprocess_plate_data_2(plate_df)
 }
 \arguments{
-\item{plate_df}{A list of all data read from the original excel wace exported file}
+\item{plate_df}{A tibble of all data read from the original excel wace exported file}
 }
 \value{
-XFe96data_tibble : a list with the new dataframe and the assay_info. A new dataframe called XFe96data_tibble is returned. 
-The preprocessed dataframe has the following columns:
+XFe96data_tibble : a tibble with the new dataframe and the assay_info. A new dataframe called XFe96data_tibble is returned.
+
+Example XFe96data_tibble: 
+#'   # A tibble: 1 × 7
+assay_info contains all important assay information 
+
+XFe96data_tibble - raw_data 
+raw_data contains a list with all important raw data:
   * plate_id
   * well
   * measurement
@@ -27,9 +33,6 @@ The preprocessed dataframe has the following columns:
   * pH
   * pH_em_corr_corr
   * backgrounds for O2_em_corr, pH_em_corr, O2_mmHg, pH, pH_em_corr_corr
-
-The assay_info has the following information:
-  * ....
 }
 \description{
 The preprocess_plate_data function preprocesses the data by:
@@ -39,8 +42,4 @@ The preprocess_plate_data function preprocesses the data by:
   * add plate_id column
   * calculating background data
   * calculating raw pH emission data
-}
-\examples{
-preprocess_plate_data(plate_df)
-
 }

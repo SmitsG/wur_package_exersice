@@ -2,7 +2,7 @@
 % Please edit documentation in R/funs_plots.R
 \name{plot_BKGD_auc_facet}
 \alias{plot_BKGD_auc_facet}
-\title{Title}
+\title{Visualizes the fluorescence emission (Au) of each background well and is based on the area under the curve (auc).}
 \usage{
 plot_BKGD_auc_facet(
   var,
@@ -14,31 +14,58 @@ plot_BKGD_auc_facet(
 )
 }
 \arguments{
-\item{var}{}
+\item{var}{The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr"}
 
-\item{auc_var}{}
+\item{auc_var}{The selected aus var (auc or auc2)}
 
-\item{df}{}
+\item{df}{An edited df, derived from the total_df (The preprocessed Raw data sheet of the Seahorse Excel file (converted from .asyr))}
 
-\item{O2_targetEmission}{}
+\item{O2_targetEmission}{Target emission of the O2 (Usually 12500 Fluorescence Emission (Au))}
 
-\item{pH_targetEmission}{}
+\item{pH_targetEmission}{Target emission of the pH (Usually 30000 Fluorescence Emission (Au))}
 
-\item{file_name}{}
+\item{file_name}{Name of the imported Seahorse file}
 
-\item{AUC_bkgd}{}
+\item{total_df}{requires description}
 
-\item{flnme}{}
+\item{targetEMS}{requires description}
+
+\item{x}{temp_df$timescale (exp. [1]   0  15  31  47  63  79  95 110 126 142 158 173 
+[1] 328 344 360 375 391 407 423 439 455 470 486 502 etc.)}
+
+\item{y}{temp_df$emission (exp. [1] 12422.08 12384.71 12365.38 12343.05 12321.03 12307.01 12295.71 12280.69 12270.68 12256.66 12246.65 12235.64
+[1] 12466.85 12424.47 12397.12 12377.10 12357.78 12338.76 12324.74 12307.43 12295.42 12286.41 12273.40 12260.39 etc.)}
+
+\item{baseline}{}
+
+\item{AUC_bkgd}{Area Under Curve background information}
+
+\item{flnme}{Name of the imported Seahorse file}
 }
 \value{
+a variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) of each background well, based on the area under the curve (auc).
 
+Title
 
+requires description
+Title
 
+auc_func (exp. [1] 1.038633, [1] 1.138149, [1] 0.9902363 etc.)
+
+auc_func (exp. [1] 1.038633, [1] 1.138149, [1] 0.9902363 etc.)
+
+a variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) of each background well, based on the area under the curve (auc).
 }
 \description{
-Title
+Visualizes the fluorescence emission (Au) of each background well and is based on the area under the curve (auc).
 }
-\examples{
-Title
-
-}
+\keyword{Title}
+\keyword{Title:}
+\keyword{background_drift(temp_df$timescale,}
+\keyword{background_drift2(temp_df$timescale,}
+\keyword{examples}
+\keyword{internal}
+\keyword{make_raw_em_corr_BKGD_plot.}
+\keyword{targetEMS)}
+\keyword{temp_df$emission)}
+\keyword{temp_df$emission,}

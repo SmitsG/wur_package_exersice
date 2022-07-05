@@ -2,16 +2,17 @@
 % Please edit documentation in R/funs_read_plate_data.R
 \name{get_originalRateTable}
 \alias{get_originalRateTable}
-\title{Title}
+\title{Title:}
 \usage{
 get_originalRateTable(filePathSeahorse)
 }
 \arguments{
-\item{filePathSeahorse}{}
+\item{filePathSeahorse}{Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.}
 }
 \value{
-
+original_rate_df_list
 }
 \description{
-Title
+Title:
 }
+\keyword{internal}
