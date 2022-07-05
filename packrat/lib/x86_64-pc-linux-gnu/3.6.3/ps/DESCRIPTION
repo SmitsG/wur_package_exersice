@@ -1,10 +1,13 @@
 Package: ps
 Title: List, Query, Manipulate System Processes
-Version: 1.7.0
-Authors@R: c( person("Jay", "Loden", role = "aut"), person("Dave",
-    "Daeschler", role = "aut"), person("Giampaolo", "Rodola'", role =
-    "aut"), person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role
-    = c("aut", "cre")), person("RStudio", role = c("cph", "fnd")) )
+Version: 1.7.1
+Authors@R: c(
+    person("Jay", "Loden", role = "aut"),
+    person("Dave", "Daeschler", role = "aut"),
+    person("Giampaolo", "Rodola'", role = "aut"),
+    person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"))
+  )
 Description: List, query and manipulate all system processes, on
     'Windows', 'Linux' and 'macOS'.
 License: MIT + file LICENSE
@@ -12,21 +15,21 @@ URL: https://github.com/r-lib/ps#readme, https://ps.r-lib.org/
 BugReports: https://github.com/r-lib/ps/issues
 Depends: R (>= 3.4)
 Imports: utils
-Suggests: callr, covr, curl, pingr, processx (>= 3.1.0), R6, rlang,
-    testthat (>= 3.0.0), tibble
+Suggests: callr, covr, curl, pillar, pingr, processx (>= 3.1.0), R6,
+        rlang, testthat (>= 3.0.0),
 Biarch: true
 Encoding: UTF-8
-RoxygenNote: 7.1.2.9000
+RoxygenNote: 7.2.0
 Config/testthat/edition: 3
 Config/Needs/website: tidyverse/tidytemplate
 NeedsCompilation: yes
-Packaged: 2022-04-23 15:48:31 UTC; gaborcsardi
-Author: Jay Loden [aut], Dave Daeschler [aut], Giampaolo Rodola' [aut],
-    Gábor Csárdi [aut, cre], RStudio [cph, fnd]
+Packaged: 2022-06-18 06:35:51 UTC; gaborcsardi
+Author: Jay Loden [aut],
+  Dave Daeschler [aut],
+  Giampaolo Rodola' [aut],
+  Gábor Csárdi [aut, cre],
+  RStudio [cph, fnd]
 Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-04-23 16:10:02 UTC
-Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-05-12 15:04:32 UTC; unix
-InstallAgent: packrat 0.7.0
-InstallSource: CRAN
-Hash: e1bcc33477b1b7312000bfaa82609355
+Date/Publication: 2022-06-18 07:10:02 UTC
+Built: R 3.6.3; x86_64-pc-linux-gnu; 2022-06-22 08:28:16 UTC; unix
