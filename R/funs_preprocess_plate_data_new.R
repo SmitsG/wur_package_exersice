@@ -50,8 +50,8 @@ library(dplyr)
 #'   * pH
 #'   * pH_em_corr_corr
 #'   * backgrounds for O2_em_corr, pH_em_corr, O2_mmHg, pH, pH_em_corr_corr
-#' @examples
-#' preprocess_plate_data(plate_df)
+# @examples
+#  preprocess_plate_data(plate_df)
 #' 
 
 preprocess_plate_data_2 <- function(plate_df) {
@@ -154,8 +154,8 @@ preprocess_plate_data_2 <- function(plate_df) {
 #' @param plate_df A dataframe that was read by read_excel from the WAVE excel output file (sheet "Raw")
 #' @return A new dataframe with adjusted and selected column names. The selected columns with new names are:
 #'   ("measurement","tick", "well", "group", "time", "O2_em_corr","pH_em_corr", "O2_mmHg", "pH")
-#' @examples
-#' rename_columns(XFe96data)
+# @examples
+# rename_columns(XFe96data)
 rename_columns <- function(plate_df) {
   
   # change column names into terms without spaces

@@ -6,25 +6,22 @@ library(ggiraph)
 library(ggplot2)
 
 #background
-#' Title : Plot Raw background. Visualizes the fluorescent emission (Au) of each background well against time. 
+#' Plot Raw background. Visualizes the fluorescent emission (Au) of each background well against time. 
 #'
 #' @param var The type of Raw Emission correction, "O2_em_corr" or "pH_em_corr".
 #' @param total_df The preprocessed Raw data sheet of the Seahorse Excel file (converted from .asyr).
 #' @param O2_targetEmission Target emission of the O2 (Usually 12500 Fluorescence Emission (Au)).
 #' @param pH_targetEmission Target emission of the pH (Usually 30000 Fluorescence Emission (Au)).
 #' @param flnme Name of the imported Seahorse file.
-#'
+#' @keywords internal
 #' @return A variable gg_plot which contains information about how to plot/visualise the fluorescent emission (Au) of each background well against time.
-#' @export
-#'
-#' @examples  gg_plot <- plot_raw_BKGD("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
+
+# @examples  gg_plot <- plot_raw_BKGD("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 
 plot_raw_BKGD <- function(var, total_df, O2_targetEmission, pH_targetEmission, flnme){
   # O2_targetEmission <- assay_info[[12]]
   # pH_targetEmission <- assay_info[[13]]
 
-#' Title: Edit the theme.
-#' @examples theme_maxTick()
   theme_maxTick <<- function(){
     theme_classic(base_size = 10) %+replace% 
       theme(panel.grid.minor.x = element_blank(),
@@ -79,15 +76,12 @@ plot_raw_BKGD <- function(var, total_df, O2_targetEmission, pH_targetEmission, f
 #' @param O2_targetEmission Target emission of the O2 (Usually 12500 Fluorescence Emission (Au))
 #' @param pH_targetEmission Target emission of the pH (Usually 30000 Fluorescence Emission (Au))
 #' @param flnme Name of the imported Seahorse file.
-#'
+#' @keywords internal
 #' @return a variable gg_plot which contains information about how to plot/visualise the mean fluorescence emission (Au) of each background well against time. 
-#' @export 
 #'
-#' @examples gg_plot <- raw_BKGD_means("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
+# @examples gg_plot <- raw_BKGD_means("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 plot_raw_BKGD_means <- function(var, total_df, O2_targetEmission, pH_targetEmission, flnme){
 
-#' Edit the theme.
-#' @examples theme_maxTick()
   theme_maxTick <- function(){
     theme_classic(base_size = 15) %+replace% 
       theme(panel.grid.minor.x = element_blank(),
@@ -161,14 +155,12 @@ plot_raw_BKGD_means <- function(var, total_df, O2_targetEmission, pH_targetEmiss
 #' @param baseline requires description
 #' @param AUC_bkgd requires description
 #' @param flnme requires description
-#' @export 
+#' @keywords internal
 #' @return a variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) of each background well, based on the area under the curve (auc).
 #'
-#' @examples plot_BKGD_auc_facet("O2_em_corr", "auc", df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
+# @examples plot_BKGD_auc_facet("O2_em_corr", "auc", df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEmission, file_name){
   
-#' Title: Edit the theme.
-#' @examples theme_maxTick()
   theme_maxTick <- function(){
     theme_classic(base_size = 18) %+replace% 
       theme(panel.grid.minor.x = element_blank(),
@@ -196,11 +188,9 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
 #' @param total_df requires description
 #' @param var requires description
 #' @param targetEMS requires description
-#'
+#' @keywords internal
 #' @return requires description
-#' @export
-#'
-#' @examples requires example
+# @examples
   get_BKGD_auc <- function(total_df, var, targetEMS){
     
 #' Title
@@ -212,9 +202,9 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
 #'                                 [1] 12466.85 12424.47 12397.12 12377.10 12357.78 12338.76 12324.74 12307.43 12295.42 12286.41 12273.40 12260.39 etc.)
 #'
 #' @return auc_func (exp. [1] 1.038633, [1] 1.138149, [1] 0.9902363 etc.)
-#' @export
+#' @keywords internal
 #'
-#' @examples background_drift(temp_df$timescale, temp_df$emission)
+#' examples background_drift(temp_df$timescale, temp_df$emission)
 #' 
     background_drift <- function(x,y){
       print(y)
@@ -232,9 +222,9 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
 #' @param baseline 
 #'
 #' @return auc_func (exp. [1] 1.038633, [1] 1.138149, [1] 0.9902363 etc.)
-#' @export
+#' @keywords internal
 #'
-#' @examples background_drift2(temp_df$timescale, temp_df$emission, targetEMS)
+#' examples background_drift2(temp_df$timescale, temp_df$emission, targetEMS)
     background_drift2 <- function(x,y, baseline){
       y <- y-baseline
       auc_func <- area_under_curve(x, y, method = "trapezoid")
@@ -272,9 +262,9 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
 #' @param flnme Name of the imported Seahorse file
 #'
 #' @return a variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) of each background well, based on the area under the curve (auc).
-#' @export
+#' @keywords internal
 #'
-#' @examples make_raw_em_corr_BKGD_plot(AUC_bkgd, "O2_em_corr", "auc", "20191219_SciRep_PBMCs_donor_A")
+# @examples make_raw_em_corr_BKGD_plot(AUC_bkgd, "O2_em_corr", "auc", "20191219_SciRep_PBMCs_donor_A")
   make_raw_em_corr_BKGD_plot <- function(AUC_bkgd, var, auc_var, flnme){
     
     gg_plot <- ggplot(data = AUC_bkgd, 
@@ -317,9 +307,9 @@ plot_BKGD_auc_facet <- function(var, auc_var, df, O2_targetEmission, pH_targetEm
 #' @param flnme Name of the imported Seahorse file.
 #'
 #' @return variable gg_plot which contains information about to plot the plate layout.
-#' @export
+#' @keywords internal
 #'
-#' @examples heatmap_groupMaker(XFe96data, "20191219_SciRep_PBMCs_donor_A")
+# @examples heatmap_groupMaker(XFe96data, "20191219_SciRep_PBMCs_donor_A")
 heatmap_groupMaker <- function(XFe96data, flnme){
   wholeWell <- XFe96data
   
@@ -375,13 +365,12 @@ heatmap_groupMaker <- function(XFe96data, flnme){
 #' @param flnme Name of the imported Seahorse file.
 #'
 #' @return variable gg which contains information about how to plot/visualise fluorescence emission (Au) of each well for different Seahorse groups. 
-#' @export
+#' @keywords internal
 #'
-#' @examples plot_group_emissions("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
+# @examples plot_group_emissions("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 plot_group_emissions <- function(var, total_df, O2_targetEmission, pH_targetEmission, flnme){
   
-#' Title: Edit the theme.
-#' @examples theme_maxTick()
+
   theme_maxTick <- function(){
     theme_classic(base_size = 30) %+replace% 
       theme(panel.grid.minor.x = element_blank(),
@@ -454,13 +443,11 @@ plot_group_emissions <- function(var, total_df, O2_targetEmission, pH_targetEmis
 #' @param flnme Name of the imported Seahorse file.
 #'
 #' @return variable gg_plot which contains information about how to plot/visualise the oxygen concentration (mmHg) of the background wells within a range plot.
-#' @export
+#' @keywords internal
 #'
-#' @examples make_range_plot("O2_em_corr", total_df, "20191219_SciRep_PBMCs_donor_A")
+# @examples make_range_plot("O2_em_corr", total_df, "20191219_SciRep_PBMCs_donor_A")
 make_range_plot <- function(var, df, flnme){
   
-#' Title: Edit the theme.
-#' @examples theme_maxTick()
   theme_maxTick <- function(){
     theme_classic(base_size = 15) }
   # theme(panel.grid.minor.x = element_blank(),
@@ -560,11 +547,9 @@ make_range_plot <- function(var, df, flnme){
 #'
 #' @return a variable gg_plot which contains information about how to plot/visualise the the fluorescence emission (Au) for all wells first tick raw.
 #'
-#' @examples plot_allWells_firstTicks("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
+# @examples plot_allWells_firstTicks("O2_em_corr", total_df, 12500, 30000, "20191219_SciRep_PBMCs_donor_A")
 plot_allWells_firstTicks <- function(var, total_df, O2_targetEmission, pH_targetEmission, flnme){
 
-#' Title: Edit the theme.
-#' @examples theme_maxTick() 
   theme_maxTick <- function(){
     theme_classic(base_size = 40) %+replace% 
       theme(panel.grid.minor.x = element_blank(),

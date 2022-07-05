@@ -2,24 +2,27 @@
 # vincent de boer
 # December 29th, 2021
 
-library(tidyverse)
-library(readxl)
-library(tidyxl)
+# Don’t use library() or require(). These modify the search path, affecting what functions are available from the global environment. Instead, you should use the DESCRIPTION to specify your package’s requirements, as described in chapter 10.2. This also makes sure those packages are installed when your package is installed.
+
+# library(tidyverse)
+# library(readxl)
+# library(tidyxl)
 library(logger)
 
+
 # read_plate_data() -------------------------------------------------------
-#' Title : Read Plate data to return all nessecary Seahorse information.
+#' Read Plate data to return all nessecary Seahorse information.
 #'
 #' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
 #' @param injscheme Type of injection Scheme
 #'
 #' @return plate_df tibble (Note: tibble has type list) with all the information important data derived from the Seahorse Excel file. 
 #' @export
+#' @import logger
 #'
-#' @examples requires example
-#' read_plate_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "HAP")
-#' read_plate_data("data/PBMC/sci_rep/20200110 SciRep PBMCs donor B.xlsx", "HAP)
-#' read_plate_data("data/PBMC/sci_rep/20200110 SciRep PBMCs donor C.xlsx", "HAP)
+#' @examples 
+#' read_plate_data("/home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice/data/raw_data/20191219_SciRep_PBMCs_donor_A.xlsx", "HAP")
+
 read_plate_data <- function(filePathSeahorse, injscheme) {
   log_info("Start reading plate data to return all nessecary Seahorse information")
   # Show the sheets of the excel file.
@@ -105,8 +108,9 @@ read_plate_data <- function(filePathSeahorse, injscheme) {
 #'
 #' @return assayConfigurationTibble : A tibble with all the nessecary information derived from the Seahorse Assay Configuration sheet.
 #' @export
-#'
-#' @examples get_assay_info(filePathSeahorse)
+#' @import tidyverse readxl dplyr
+#  @examples 
+#  get_assay_info("/home/xiang/Documents/Documents Gerwin/Projects/r_exersice/wur_package_exersice/data/raw_data/20200110_SciRep_PBMCs_donor_C.xlsx")
 get_assay_info <- function(filePathSeahorse) {
 
   # read Assay Configuration sheet from the Seahorse Exel file. 
@@ -203,9 +207,9 @@ get_assay_info <- function(filePathSeahorse) {
 #'
 #' @return A new dataframe called measurement_info The df has three columns: 
 #'   $measurement, $interval, $injection
-#' @export
-#' @examples
-#' get_injection_info_H(filePathSeahorse)
+#' @keywords internal
+# @examples
+# get_injection_info_H(filePathSeahorse)
 get_injection_info_H <- function (filePathSeahorse){
   
   #read injection strategy and measurements
@@ -236,8 +240,8 @@ get_injection_info_H <- function (filePathSeahorse){
 #' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.
 #' @return A new dataframe called measurement_info The df has three columns: 
 #'   $measurement, $interval, $injection
-#' @examples
-#' get_injection_info_M(filePathSeahorse)
+#  @examples
+#  get_injection_info_M(filePathSeahorse)
 get_injection_info_M <- function (filePathSeahorse){
   
   #read injection strategy and measurements
@@ -282,12 +286,11 @@ get_injection_info_M <- function (filePathSeahorse){
 #' @param my_sheet Sheet of the Seahorse Excel file
 #' @param my_range Range of the cells in the Seahorse Excel file
 #' @param my_param Summarised name of the parameter which will include the data that is collected
-#'
+#' @import tidyr
 #' @return dataframe with plate layout data.
-#' @export
 #'
-#' @examples 
-#' get_platelayout_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "Assay Configuration", "B96:N104", "bufferfactor")
+# @examples 
+# get_platelayout_data("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx", "Assay Configuration", "B96:N104", "bufferfactor")
 #' 
 get_platelayout_data <- function(filePathSeahorse, my_sheet,my_range, my_param ){
   
@@ -323,14 +326,13 @@ get_platelayout_data <- function(filePathSeahorse, my_sheet,my_range, my_param )
 #' Title: 
 #'
 #' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
-#'
 #' @return original_rate_df_list
-#' @export 
-#'
-#' @examples
-#' get_originalRateTable("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx")
-#' get_originalRateTable("data/PBMC/sci_rep/20200110 SciRep PBMCs donor B.xlsx")
-#' get_originalRateTable("data/PBMC/sci_rep/20200110 SciRep PBMCs donor C.xlsx")
+#' @keywords internal
+# @import tidyverse
+# @examples
+# get_originalRateTable("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx")
+# get_originalRateTable("data/PBMC/sci_rep/20200110 SciRep PBMCs donor B.xlsx")
+# get_originalRateTable("data/PBMC/sci_rep/20200110 SciRep PBMCs donor C.xlsx")
 get_originalRateTable<- function(filePathSeahorse){
   # 
   original_rate_df <-read_excel(filePathSeahorse, sheet = "Rate")
@@ -386,48 +388,47 @@ get_originalRateTable<- function(filePathSeahorse){
 #' @param filePathSeahorse Absolute path to the Seahorse excel data derived from the Agilent Seahorse XF Wave software. assay result file (.asyr) files must converted into .excel files.  
 #'
 #' @return flagged_vector
-#' @export
-#'
+#' @keywords internal
 #' @examples
-#' get_flagged_wells("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx")
+#  get_flagged_wells("data/PBMC/sci_rep/20191219 SciRep PBMCs donor A.xlsx")
 #' 
-get_flagged_wells <- function(filePathSeahorse){
-  
-  #read excel file using todyxl
-  
-  x <- xlsx_cells(filePathSeahorse, "Assay Configuration", include_blank_cells = FALSE)
-  formats <- xlsx_formats(filePathSeahorse, "Assay Configuration", include_blank_cells = FALSE)
-  
-  # subset to only the platelayout with the cells that show the "unselected" wells by user
-  subset_x <- x %>% filter(row %in% c(12:19)) %>% filter(col %in% c(3:14))
-  
-  # get the "unselected" (flagged) wells (based on color fill)
-  flagged_df <- subset_x[subset_x$local_format_id %in%
-                           which(formats$local$fill$patternFill$fgColor$rgb == "FFFFFFFF"),
-                         c("address")]
-  
-  # optionally alignment format can be used
-  subset_x[subset_x$local_format_id %in%
-             which(formats$local$alignment$horizontal == "center"),
-           c("address")]
-  
-  # changed the cell address to well names
-  new_col_names <- flagged_df %>% 
-    pull(address) %>% substr(1,1) %>% 
-    str_c(collapse = "---") %>% 
-    str_replace_all(c("C" = "01", "D" = "02", "E" = "03", "F" = "04", "G" = "05", "H" = "06", 
-                      "I" = "07", "J" = "08", "K" = "09", "L" = "10", "M" = "11", "N" = "12"))
-  new_col_names <-   unlist(str_split(new_col_names, "---"))
-  
-  new_row_names <- flagged_df %>% 
-    pull(address) %>% substr(2,3) %>% 
-    str_c(collapse = "---") %>% 
-    str_replace_all(c("12" = "A", "13" = "B", "14" = "C", "15" = "D", "16" = "E", "17" = "F", 
-                      "18" = "G", "18" = "H"))
-  new_row_names <-   unlist(str_split(new_row_names, "---"))
-  
-  # output the wells that were "unselected" (flagged)
-  flagged_vector <- paste0(new_row_names, new_col_names)
-  
-  return(flagged_vector)
-}
+# get_flagged_wells <- function(filePathSeahorse){
+#   
+#   #read excel file using todyxl
+#   
+#   x <- xlsx_cells(filePathSeahorse, "Assay Configuration", include_blank_cells = FALSE)
+#   formats <- xlsx_formats(filePathSeahorse, "Assay Configuration", include_blank_cells = FALSE)
+#   
+#   # subset to only the platelayout with the cells that show the "unselected" wells by user
+#   subset_x <- x %>% filter(row %in% c(12:19)) %>% filter(col %in% c(3:14))
+#   
+#   # get the "unselected" (flagged) wells (based on color fill)
+#   flagged_df <- subset_x[subset_x$local_format_id %in%
+#                            which(formats$local$fill$patternFill$fgColor$rgb == "FFFFFFFF"),
+#                          c("address")]
+#   
+#   # optionally alignment format can be used
+#   subset_x[subset_x$local_format_id %in%
+#              which(formats$local$alignment$horizontal == "center"),
+#            c("address")]
+#   
+#   # changed the cell address to well names
+#   new_col_names <- flagged_df %>% 
+#     pull(address) %>% substr(1,1) %>% 
+#     str_c(collapse = "---") %>% 
+#     str_replace_all(c("C" = "01", "D" = "02", "E" = "03", "F" = "04", "G" = "05", "H" = "06", 
+#                       "I" = "07", "J" = "08", "K" = "09", "L" = "10", "M" = "11", "N" = "12"))
+#   new_col_names <-   unlist(str_split(new_col_names, "---"))
+#   
+#   new_row_names <- flagged_df %>% 
+#     pull(address) %>% substr(2,3) %>% 
+#     str_c(collapse = "---") %>% 
+#     str_replace_all(c("12" = "A", "13" = "B", "14" = "C", "15" = "D", "16" = "E", "17" = "F", 
+#                       "18" = "G", "18" = "H"))
+#   new_row_names <-   unlist(str_split(new_row_names, "---"))
+#   
+#   # output the wells that were "unselected" (flagged)
+#   flagged_vector <- paste0(new_row_names, new_col_names)
+#   
+#   return(flagged_vector)
+# }

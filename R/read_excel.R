@@ -18,9 +18,9 @@ library(logger)
 #' @param .name_repair requires description
 #'
 #' @return requires description
-#' @export
+#' @keywords internal
 #'
-#' @examples requires example
+# @examples requires example
 read_excel_rwave <- function( path,
                               sheet = NULL,
                               range = NULL,
